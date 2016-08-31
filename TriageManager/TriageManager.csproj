@@ -219,6 +219,7 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="Triage\Contents.aspx" />
+    <Content Include="Triage\FeedBackPending.aspx" />
     <Content Include="Triage\media1.mp4" />
     <Content Include="Triage\MyPoll.aspx" />
     <Content Include="Triage\MyProfile.aspx" />
@@ -407,6 +408,13 @@
     </Compile>
     <Compile Include="Triage\Contents.aspx.designer.cs">
       <DependentUpon>Contents.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Triage\FeedBackPending.aspx.cs">
+      <DependentUpon>FeedBackPending.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Triage\FeedBackPending.aspx.designer.cs">
+      <DependentUpon>FeedBackPending.aspx</DependentUpon>
     </Compile>
     <Compile Include="Triage\MyPoll.aspx.cs">
       <DependentUpon>MyPoll.aspx</DependentUpon>

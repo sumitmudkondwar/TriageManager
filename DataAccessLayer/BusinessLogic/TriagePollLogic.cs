@@ -117,6 +117,22 @@ namespace DataAccessLayer.BusinessLogic
             return dt;
         }
 
+        public DataTable GetFeedBackPending(string alias)
+        {
+            DataTable dt = new DataTable();
+            string Query = "select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date],TriageTopic,Team1Member [Team1 Member],";
+            Query = Query + "Team2Member [Team2 Member],TA_Member[TA Member],TriageMentor[Triage Mentor],'Submit Poll'[Submit Poll],'Triage Contents'[Triage Contents]";
+            Query = Query + " from (select datediff(day, triagedate, getdate())[day1], triagedate,getdate()[customdate],TriageTopic,Team1Member,Team2Member,TA_Member,TriageMentor from triagecalender) a";
+            Query = Query + " where day1 > 0 AND [TriageDate] NOT IN (select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date] from poll where alias = @p_Alias)";
+            SqlParameter[] sqlParameter = new SqlParameter[]
+                {
+                    new SqlParameter("@p_Alias", alias),
+                };
+            dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+
+            return dt;
+        }
+
         public DataTable YourTriages(string name)
         {
             DataTable dt = new DataTable();
