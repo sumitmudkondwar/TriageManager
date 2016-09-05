@@ -13,12 +13,12 @@
                 <asp:BoundField DataField="Triage Mentor" HeaderText="Mentor" />
                 <asp:TemplateField HeaderText="Feedback">
                     <ItemTemplate>
-                        <asp:HyperLink runat="server" NavigateUrl='<%# Eval("Triage Date", "~/Triage/MyPoll.aspx?Id={0}") %>' Text="Submit" />
+                        <asp:HyperLink runat="server" NavigateUrl='<%# Eval("Triage Date", "~/Triage/MyPoll.aspx?TriageDate={0}") %>' Text="Submit" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Contents">
                     <ItemTemplate>
-                        <asp:HyperLink runat="server" NavigateUrl='<%# Eval("Triage Date", "~/Triage/Contents.aspx?Id={0}") %>' Text="Contents" />
+                        <asp:HyperLink runat="server" NavigateUrl='<%# Eval("Triage Date", "~/Triage/Contents.aspx?TriageDate={0}") %>' Text="Contents" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

@@ -30,7 +30,7 @@
                 <asp:BoundField DataField="Team2 Member" HeaderText="Team 2" />
                 <asp:BoundField DataField="TA Member" HeaderText="TA" />
                 <asp:BoundField DataField="Triage Mentor" HeaderText="Mentor" />
-                <asp:TemplateField HeaderText="Feedback">
+                <%--<asp:TemplateField HeaderText="Feedback">
                     <ItemTemplate>
                         <asp:HyperLink runat="server" NavigateUrl='<%# Eval("Triage Date", "~/Triage/MyPoll.aspx?Id={0}") %>' Text="Submit" />
                     </ItemTemplate>
@@ -39,7 +39,7 @@
                     <ItemTemplate>
                         <asp:HyperLink runat="server" NavigateUrl='<%# Eval("Triage Date", "~/Triage/Contents.aspx?Id={0}") %>' Text="Contents" />
                     </ItemTemplate>
-                </asp:TemplateField>
+                </asp:TemplateField>--%>
             </Columns>
         </asp:GridView>
         <br />

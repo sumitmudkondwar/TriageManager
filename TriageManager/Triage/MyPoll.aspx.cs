@@ -14,7 +14,13 @@ namespace TriageManager.Triage
         protected void Page_Load(object sender, EventArgs e)
         {
             TriagePollLogic triagePollLogic = new TriagePollLogic();
-            Session["TriageDate"] = triagePollLogic.GetTriageDate(true).Rows[0][0].ToString();
+            if (Request["TriageDate"] == null && Session["TriageDate"] == null)
+                Session["TriageDate"] = triagePollLogic.GetTriageDate(true).Rows[0][0].ToString();
+            else if (triagePollLogic.GetValidTriageDate(Request["TriageDate"]))
+                Session["TriageDate"] = Request["TriageDate"].ToString();
+            else
+                Response.Redirect("~/Default.aspx");
+
             lblIsTriageAttended.Text = Session["TriageDate"].ToString();
 
             Session["PollValidation"] = triagePollLogic.PollValidation(HttpContext.Current.User.Identity.Name.ToString(), Convert.ToDateTime(Session["TriageDate"].ToString()));
