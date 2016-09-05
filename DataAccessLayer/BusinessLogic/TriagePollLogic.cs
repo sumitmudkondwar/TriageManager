@@ -147,5 +147,37 @@ namespace DataAccessLayer.BusinessLogic
 
             return dt;
         }
+
+        public bool GetValidTriageDate(string TriageDate)
+        {
+            try
+            {
+                DateTime TriageDateNew = Convert.ToDateTime(TriageDate);
+
+                if (TriageDateNew > DateTime.Today.Date)
+                    return false;
+
+                DataTable dt = new DataTable();
+                string Query = "select count(*)[Count] from TriageCalender where TriageDate = @p_TriageDate";
+                SqlParameter[] sqlParameter = new SqlParameter[]
+                    {
+                        new SqlParameter("@p_TriageDate", TriageDateNew),
+                    };
+                dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+
+                if (Convert.ToInt32(dt.Rows[0][0]) > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
