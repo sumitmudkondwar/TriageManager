@@ -203,6 +203,7 @@
     <Content Include="SQL_Scripts\get_TriageDate.sql" />
     <Content Include="SQL_Scripts\Poll.sql" />
     <Content Include="SQL_Scripts\pr_DashBoard.sql" />
+    <Content Include="SQL_Scripts\pr_getYourTriages.sql" />
     <Content Include="SQL_Scripts\pr_InsertPoll.sql" />
     <Content Include="SQL_Scripts\TriageCalender.sql" />
     <Content Include="Triage\Contents.aspx" />

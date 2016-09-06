@@ -136,14 +136,11 @@ namespace DataAccessLayer.BusinessLogic
         public DataTable YourTriages(string name)
         {
             DataTable dt = new DataTable();
-            string Query = "declare @name varchar(50) select @name = alias from users where emailid = @p_Alias";
-            Query = Query + " select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date], TriageTopic [Triage Topic], Team1Member [Team1 Member], Team2Member [Team2 Member], TA_Member [TA Member], TriageMentor[Triage Mentor]";
-            Query = Query + " from triagecalender where team1member = @name or team2member = @name or ta_member = @name or triagementor = @name";
             SqlParameter[] sqlParameter = new SqlParameter[]
                 {
                     new SqlParameter("@p_Alias", name),
                 };
-            dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+            dt = DataAccess.DataAccess.executeProcGetDataTable("pr_getYourTriages", sqlParameter);
 
             return dt;
         }

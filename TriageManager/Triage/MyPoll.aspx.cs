@@ -19,7 +19,8 @@ namespace TriageManager.Triage
             else if (triagePollLogic.GetValidTriageDate(Request["TriageDate"]))
                 Session["TriageDate"] = Request["TriageDate"].ToString();
             else
-                Response.Redirect("~/Default.aspx");
+                ClearAll1();
+            //Response.Redirect("~/Default.aspx");
 
             lblIsTriageAttended.Text = Session["TriageDate"].ToString();
 
