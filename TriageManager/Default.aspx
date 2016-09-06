@@ -21,7 +21,8 @@
         <br />
         <br />
         <br />
-        <asp:GridView ID="grdDashboard" runat="server" AutoGenerateColumns="False">
+        <asp:GridView ID="grdDashboard" runat="server" AutoGenerateColumns="False" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
+            RowStyle-CssClass="rows">
             <Columns>
                 <asp:BoundField DataField="Triage" HeaderText="" />
                 <asp:BoundField DataField="Triage Date" HeaderText="Date" />

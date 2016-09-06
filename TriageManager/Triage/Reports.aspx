@@ -6,6 +6,12 @@
     <hr />
     <div>
         <div>
+            <b>Select Triage Date:</b>
+            <asp:DropDownList ID="ddlTriageDates" AppendDataBoundItems="true" OnSelectedIndexChanged="ddlTriageDates_SelectedIndexChanged" Width="20%" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
+        </div>
+        <br />
+        <br />
+        <div>
             <asp:GridView ID="grdReport" runat="server" AutoGenerateColumns="True" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
                 RowStyle-CssClass="rows">
             </asp:GridView>
