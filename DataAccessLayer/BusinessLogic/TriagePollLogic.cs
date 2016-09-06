@@ -45,7 +45,7 @@ namespace DataAccessLayer.BusinessLogic
                 {
                     new SqlParameter("@p_Alias", "test"),
                 };
-            dt = DataAccess.DataAccess.executeGetDataTable("select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date], TriageTopic [Topic], Team1Member [Team 1], Team2Member [Team 2], TA_Member [TA], TriageMentor [Mentor] from TriageCalender", sqlParameter);
+            dt = DataAccess.DataAccess.executeProcGetDataTable("pr_getTriageCalender", sqlParameter);
 
             return dt;
         }
