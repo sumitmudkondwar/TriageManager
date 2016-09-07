@@ -22,6 +22,15 @@ namespace TriageManager.Triage {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvSelectEngineer;
         
         /// <summary>
+        /// ddlReportType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlReportType;
+        
+        /// <summary>
         /// ddlEngineerName control.
         /// </summary>
         /// <remarks>

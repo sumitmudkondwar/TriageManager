@@ -228,12 +228,29 @@ namespace DataAccessLayer.BusinessLogic
             }
         }
 
-        public DataTable GetReportData(string TriageDate)
+        public DataTable GetReportData(string TriageDate, string ReportType)
         {
             DataTable dt = new DataTable();
 
-            string Query = "select Alias,IsTriageAttended,TriageLevel,TriageQuality,Presentation,Comments,Reason from poll where TriageDate = @p_TriageDate";
-            
+            string Query = "";
+
+            if (ReportType.Equals("1"))
+            {
+                Query = "select us.FirstName + ' ' + us.LastName [Name], us.Alias, us.EmailID [Email ID],TriageLevel [Triage Level],TriageQuality [Triage Quality],Presentation,Comments";
+                Query = Query + " from poll po inner join users us on (po.alias = us.emailid)";
+                Query = Query + " where TriageDate = @p_TriageDate and IsTriageAttended='Yes'";
+            }
+            else if (ReportType.Equals("2"))
+            {
+                Query = "select us.FirstName + ' ' + us.LastName [Name], us.Alias, us.EmailID [Email ID], Reason from poll po ";
+                Query = Query + " inner join users us on (po.alias = us.emailid)";
+                Query = Query + " where TriageDate = @p_TriageDate and IsTriageAttended='No'";
+            }
+            else if (ReportType.Equals("3"))
+            {
+                Query = "select FirstName + ' ' + LastName[List of Engineers Not Submitted Poll],EmailID [Email ID],Alias from Users where EmailID not in (select Alias from poll where TriageDate = @p_TriageDate)";
+            }
+                        
             SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_TriageDate", TriageDate) };
             dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
             
@@ -245,8 +262,8 @@ namespace DataAccessLayer.BusinessLogic
             DataTable dt = new DataTable();
 
             string Query = "declare @Alias varchar(50); select @Alias = Alias from Users where EmailID = @p_EmailID;";
-            Query = Query + " select IsTriageAttended,TriageLevel,TriageQuality,Presentation,Comments,Reason,REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[TriageDate] from poll where TriageDate = (select top 1 TriageDate from TriageCalender ";
-            Query = Query + " where Team1Member = @Alias or Team2Member = @Alias or TA_Member = @Alias or TriageMentor = @Alias)";
+            Query = Query + " select TriageLevel,TriageQuality,Presentation,Comments from poll where TriageDate = (select top 1 TriageDate from TriageCalender ";
+            Query = Query + " where (Team1Member = @Alias or Team2Member = @Alias or TA_Member = @Alias or TriageMentor = @Alias) and IsTriageAttended='Yes')";
 
             SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_EmailID", EmailID) };
             dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);

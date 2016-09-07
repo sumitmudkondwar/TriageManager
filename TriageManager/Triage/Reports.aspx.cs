@@ -23,7 +23,7 @@ namespace TriageManager.Triage
         {
             DataTable dt = new DataTable();
             TriagePollLogic triagePollLogic = new TriagePollLogic();
-            dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString());
+            dt = triagePollLogic.GetReportNameList("sumudk@microsoft.com");//HttpContext.Current.User.Identity.Name.ToString());
 
             if (dt != null)
             {
@@ -47,7 +47,7 @@ namespace TriageManager.Triage
         protected void btnGetReport_Click(object sender, EventArgs e)
         {
             TriagePollLogic triagePollLogic = new TriagePollLogic();
-            grdReport.DataSource = triagePollLogic.GetReportData(ddlTriageDates.SelectedValue.ToString());
+            grdReport.DataSource = triagePollLogic.GetReportData(ddlTriageDates.SelectedValue.ToString(), ddlReportType.SelectedValue.ToString());
             grdReport.DataBind();
         }
 
@@ -62,6 +62,10 @@ namespace TriageManager.Triage
 
             ddlTriageDates.DataSource = dt;
             ddlTriageDates.DataBind();
+
+            grdReport.DataSource = null;
+            grdReport.DataBind();
+
         }
     }
 }
