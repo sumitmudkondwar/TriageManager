@@ -23,7 +23,7 @@ namespace TriageManager.Triage
         {
             DataTable dt = new DataTable();
             TriagePollLogic triagePollLogic = new TriagePollLogic();
-            dt = triagePollLogic.GetReportNameList("sumudk@microsoft.com");//HttpContext.Current.User.Identity.Name.ToString());
+            dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString());
 
             if (dt != null)
             {
