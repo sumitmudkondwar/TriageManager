@@ -13,6 +13,24 @@ namespace TriageManager.Triage {
     public partial class Reports {
         
         /// <summary>
+        /// dvSelectEngineer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvSelectEngineer;
+        
+        /// <summary>
+        /// ddlEngineerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEngineerName;
+        
+        /// <summary>
         /// ddlTriageDates control.
         /// </summary>
         /// <remarks>
@@ -20,6 +38,15 @@ namespace TriageManager.Triage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTriageDates;
+        
+        /// <summary>
+        /// btnGetReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGetReport;
         
         /// <summary>
         /// grdReport control.

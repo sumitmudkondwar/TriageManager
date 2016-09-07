@@ -177,7 +177,7 @@ namespace DataAccessLayer.BusinessLogic
             }
         }
 
-        public DataTable GetReportDates(string Alias)
+        public DataTable GetReportNameList(string Alias)
         {
             try
             {
@@ -188,22 +188,19 @@ namespace DataAccessLayer.BusinessLogic
                 SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_EmailID", Alias) };
                 dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
 
-                if (dt.Rows[0][0].ToString().Equals("Support Engineer"))
+                if (dt.Rows[0][0].ToString().Equals("TA"))
                 {
-                    Query = "declare @Alias varchar(50); select @Alias = Alias from users where EmailID = @p_Alias; ";
-                    Query = Query + " select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[TriageDate] from TriageCalender where Team1Member = @Alias or Team2Member = @Alias or TA_Member = @Alias or TriageMentor = @Alias";
-                }
-                else if (dt.Rows[0][0].ToString().Equals("TA"))
-                {
-                    Query = "select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[TriageDate] from TriageCalender";
-                }
-
-                sqlParameter = new SqlParameter[]
+                    dt = new DataTable();
+                    Query = "select FirstName + ' ' + LastName [Name], Alias from users order by [Name]";
+                    sqlParameter = new SqlParameter[]
                     {
                         new SqlParameter("@p_Alias", Alias),
                     };
-                dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
-
+                    dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+                }
+                else
+                    dt = null;
+                
                 return dt;
             }
             catch(Exception ex)
@@ -212,27 +209,46 @@ namespace DataAccessLayer.BusinessLogic
             }
         }
 
-        public DataTable GetReportData(string EmailID, string TriageDate)
+        public DataTable GetTriageDateList(string Alias)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+
+                string Query = "select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[TriageDate] from TriageCalender where Team1Member = @Alias or Team2Member = @Alias or TA_Member = @Alias or TriageMentor = @Alias";
+
+                SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@Alias", Alias) };
+                dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+                
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public DataTable GetReportData(string TriageDate)
         {
             DataTable dt = new DataTable();
 
-            string Query = "select designation from users where EmailID = @p_EmailID";
+            string Query = "select Alias,IsTriageAttended,TriageLevel,TriageQuality,Presentation,Comments,Reason from poll where TriageDate = @p_TriageDate";
             
-            SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_EmailID", EmailID) };
+            SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_TriageDate", TriageDate) };
             dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+            
+            return dt;
+        }
 
-            if (dt.Rows[0][0].ToString().Equals("Support Engineer"))
-            {
-                Query = "select IsTriageAttended,TriageLevel,TriageQuality,Presentation,Comments,Reason from poll where TriageDate = @p_TriageDate";
-            }
-            else //if(dt.Rows[0][0].ToString().Equals("TA"))
-            {
-                Query = "select Alias,IsTriageAttended,TriageLevel,TriageQuality,Presentation,Comments,Reason from poll where TriageDate = @p_TriageDate";
-            }
+        public DataTable GetReportDataForAll(string EmailID)
+        {
+            DataTable dt = new DataTable();
 
-            sqlParameter = new SqlParameter[] { new SqlParameter("@p_TriageDate", TriageDate) };
+            string Query = "declare @Alias varchar(50); select @Alias = Alias from Users where EmailID = @p_EmailID;";
+            Query = Query + " select IsTriageAttended,TriageLevel,TriageQuality,Presentation,Comments,Reason,REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[TriageDate] from poll where TriageDate = (select top 1 TriageDate from TriageCalender ";
+            Query = Query + " where Team1Member = @Alias or Team2Member = @Alias or TA_Member = @Alias or TriageMentor = @Alias)";
 
-            dt = new DataTable();
+            SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_EmailID", EmailID) };
             dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
 
             return dt;

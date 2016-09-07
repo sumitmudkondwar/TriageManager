@@ -23,20 +23,45 @@ namespace TriageManager.Triage
         {
             DataTable dt = new DataTable();
             TriagePollLogic triagePollLogic = new TriagePollLogic();
-            dt = triagePollLogic.GetReportDates(HttpContext.Current.User.Identity.Name.ToString());
+            dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString());
+
+            if (dt != null)
+            {
+                dvSelectEngineer.Visible = true;
+                ddlEngineerName.DataTextField = "Name";
+                ddlEngineerName.DataValueField = "Alias";
+
+                ddlEngineerName.DataSource = dt;
+                ddlEngineerName.DataBind();
+            }
+            else
+            {
+                dt = new DataTable();
+                dvSelectEngineer.Visible = false;
+                dt = triagePollLogic.GetReportDataForAll(HttpContext.Current.User.Identity.Name.ToString());
+                grdReport.DataSource = dt;
+                grdReport.DataBind();
+            }
+        }
+
+        protected void btnGetReport_Click(object sender, EventArgs e)
+        {
+            TriagePollLogic triagePollLogic = new TriagePollLogic();
+            grdReport.DataSource = triagePollLogic.GetReportData(ddlTriageDates.SelectedValue.ToString());
+            grdReport.DataBind();
+        }
+
+        protected void ddlEngineerName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            TriagePollLogic triagePollLogic = new TriagePollLogic();
+            dt = triagePollLogic.GetTriageDateList(ddlEngineerName.SelectedValue);
 
             ddlTriageDates.DataTextField = "TriageDate";
             ddlTriageDates.DataValueField = "TriageDate";
-            
+
             ddlTriageDates.DataSource = dt;
             ddlTriageDates.DataBind();
-        }
-
-        protected void ddlTriageDates_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            TriagePollLogic triagePollLogic = new TriagePollLogic();
-            grdReport.DataSource = triagePollLogic.GetReportData(HttpContext.Current.User.Identity.Name.ToString(), ddlTriageDates.SelectedValue.ToString());
-            grdReport.DataBind();
         }
     }
 }
