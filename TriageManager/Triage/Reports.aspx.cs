@@ -15,6 +15,7 @@ namespace TriageManager.Triage
         {
             if(!IsPostBack)
             {
+                lblMessage.Text = string.Empty;
                 PopulateDropdownlist();
             }
         }
@@ -41,14 +42,38 @@ namespace TriageManager.Triage
                 dt = triagePollLogic.GetReportDataForAll(HttpContext.Current.User.Identity.Name.ToString());
                 grdReport.DataSource = dt;
                 grdReport.DataBind();
+                if (dt.Rows.Count == 0)
+                {
+                    lblMessage.Text = "No Records Found...";
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+                    lblMessage.Text = "Total Records: " + dt.Rows.Count.ToString();
+                    lblMessage.ForeColor = System.Drawing.Color.Green;
+                }
             }
         }
 
         protected void btnGetReport_Click(object sender, EventArgs e)
         {
+            DataTable dt = new DataTable();
             TriagePollLogic triagePollLogic = new TriagePollLogic();
-            grdReport.DataSource = triagePollLogic.GetReportData(ddlTriageDates.SelectedValue.ToString(), ddlReportType.SelectedValue.ToString());
+            dt = triagePollLogic.GetReportData(ddlTriageDates.SelectedValue.ToString(), ddlReportType.SelectedValue.ToString());
+
+            grdReport.DataSource = dt;
             grdReport.DataBind();
+
+            if (dt.Rows.Count == 0)
+            {
+                lblMessage.Text = "No Records Found...";
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                lblMessage.Text = "Total Records: " + dt.Rows.Count.ToString();
+                lblMessage.ForeColor = System.Drawing.Color.Green;
+            }
         }
 
         protected void ddlEngineerName_SelectedIndexChanged(object sender, EventArgs e)
@@ -66,6 +91,7 @@ namespace TriageManager.Triage
             grdReport.DataSource = null;
             grdReport.DataBind();
 
+            lblMessage.Text = string.Empty;
         }
     }
 }

@@ -21,6 +21,7 @@
             <asp:Button runat="server" ID="btnGetReport" Text="Submit" Width="10%" OnClick="btnGetReport_Click" CssClass="form-control" />
         </div>
         <br />
+        <asp:Label ID="lblMessage" runat="server"></asp:Label>
         <br />
         <div>
             <asp:GridView ID="grdReport" runat="server" AutoGenerateColumns="True" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
