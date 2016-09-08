@@ -3,7 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %></h2>
     <div>
-        <asp:GridView ID="grdFeedBackPending" runat="server" AutoGenerateColumns="False">
+        <asp:GridView ID="grdFeedBackPending" runat="server" AutoGenerateColumns="False" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
+                RowStyle-CssClass="rows">
             <Columns>
                 <asp:BoundField DataField="Triage Date" HeaderText="Date" />
                 <asp:BoundField DataField="TriageTopic" HeaderText="Topic" />

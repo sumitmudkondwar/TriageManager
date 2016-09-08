@@ -1,6 +1,6 @@
-alter proc pr_DashBoard
+Create proc pr_GetFeedbackPending
 (
-	@p_type int
+	@p_Alias varchar(50)
 )
 as
 begin
@@ -15,21 +15,35 @@ begin
 	declare @TAMemberName varchar(100)
 	declare @MentorName varchar(100)
 
-	select * into #temp from
-	(select [Triage],[Triage Date],TriageTopic,[Team1 Member],[Team2 Member],[TA Member],[Triage Mentor],[Submit Poll],[Triage Contents] from (
-	select top 1 [day1],'Last Triage'[Triage], REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date],
-	TriageTopic,Team1Member [Team1 Member],Team2Member [Team2 Member],TA_Member[TA Member],TriageMentor[Triage Mentor],'Submit Poll'[Submit Poll],'Triage Contents'[Triage Contents]
-	from (select datediff(day, triagedate, getdate())[day1], triagedate,getdate()[customdate],TriageTopic,Team1Member,Team2Member,TA_Member,TriageMentor from triagecalender) a
-	where day1 > 0
-	order by 1 )b
-
-	Union
-
-	select top 1 'Upcoming Triage'[Triage],REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date],
-	TriageTopic,Team1Member[Team1 Member],Team2Member [Team2 Member],TA_Member [TA Member],TriageMentor[Triage Mentor],'Submit Poll'[Submit Poll],'Triage Contents'[Triage Contents]
-	from (select datediff(day, triagedate, getdate())[day1], triagedate,getdate()[customdate],TriageTopic,Team1Member,Team2Member,TA_Member,TriageMentor from triagecalender) a
-	where day1 <= 0)s
-
+	select 
+			REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date],
+			TriageTopic,
+			Team1Member [Team1 Member],
+			Team2Member [Team2 Member],
+			TA_Member[TA Member],
+			TriageMentor[Triage Mentor],
+			'Submit Poll'[Submit Poll],
+			'Triage Contents'[Triage Contents]
+	into #temp
+	from 
+	(
+		select 
+				datediff(day, triagedate, 
+				getdate())[day1], 
+				triagedate,getdate()[customdate],
+				TriageTopic,
+				Team1Member,
+				Team2Member,
+				TA_Member,
+				TriageMentor 
+		from triagecalender
+	) a
+	where day1 > 0 AND [TriageDate] NOT IN 
+		(
+			select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date] 
+			from poll where alias = @p_Alias
+		)
+	
 	DECLARE db_cursor1 CURSOR FOR (select [Team1 Member],[Team2 Member],[TA Member],[Triage Mentor] from #temp)
 	open db_cursor1
 
@@ -37,6 +51,7 @@ begin
 
 	while @@FETCH_STATUS = 0
 	begin
+		--select @Team1Member,@Team2Member,@TAMember,@Mentor
 
 		set @Team1Name = (select FirstName + ' ' + LastName from Users where Alias = @Team1Member)
 
@@ -61,17 +76,16 @@ begin
 		fetch next from db_cursor1 into @Team1Member,@Team2Member,@TAMember,@Mentor
 	end
 
-	CLOSE db_cursor1   
-	DEALLOCATE db_cursor1
+
 
 	select * from #temp
 
-	drop table #temp
+	close db_cursor1   
+	deallocate db_cursor1
 
 end
 
+go
 
-GO
-
-[pr_DashBoard] 1
+--pr_GetFeedbackPending 'sumudk@microsoft.com'
 

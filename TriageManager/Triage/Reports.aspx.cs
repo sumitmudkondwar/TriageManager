@@ -24,7 +24,11 @@ namespace TriageManager.Triage
         {
             DataTable dt = new DataTable();
             TriagePollLogic triagePollLogic = new TriagePollLogic();
-            dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString());
+            string Designation = string.Empty;
+
+            dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString(), out Designation);
+
+            Session["Designation"] = Designation;
 
             if (dt != null)
             {
@@ -59,7 +63,7 @@ namespace TriageManager.Triage
         {
             DataTable dt = new DataTable();
             TriagePollLogic triagePollLogic = new TriagePollLogic();
-            dt = triagePollLogic.GetReportData(ddlTriageDates.SelectedValue.ToString(), ddlReportType.SelectedValue.ToString());
+            dt = triagePollLogic.GetReportData(ddlTriageDates.SelectedValue.ToString(), ddlReportType.SelectedValue.ToString(), Session["Designation"].ToString());
 
             grdReport.DataSource = dt;
             grdReport.DataBind();

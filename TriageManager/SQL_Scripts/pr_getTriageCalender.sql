@@ -1,4 +1,4 @@
-alter proc pr_getTriageCalender
+create proc pr_getTriageCalender
 (
 	@p_Alias varchar(50)
 )
@@ -58,5 +58,5 @@ end
 
 go
 
-pr_getTriageCalender ''
+--pr_getTriageCalender ''
 

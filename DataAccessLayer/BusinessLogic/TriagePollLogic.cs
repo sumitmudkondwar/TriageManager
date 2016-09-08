@@ -120,15 +120,12 @@ namespace DataAccessLayer.BusinessLogic
         public DataTable GetFeedBackPending(string alias)
         {
             DataTable dt = new DataTable();
-            string Query = "select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date],TriageTopic,Team1Member [Team1 Member],";
-            Query = Query + "Team2Member [Team2 Member],TA_Member[TA Member],TriageMentor[Triage Mentor],'Submit Poll'[Submit Poll],'Triage Contents'[Triage Contents]";
-            Query = Query + " from (select datediff(day, triagedate, getdate())[day1], triagedate,getdate()[customdate],TriageTopic,Team1Member,Team2Member,TA_Member,TriageMentor from triagecalender) a";
-            Query = Query + " where day1 > 0 AND [TriageDate] NOT IN (select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date] from poll where alias = @p_Alias)";
+            string Query = "pr_GetFeedbackPending";
             SqlParameter[] sqlParameter = new SqlParameter[]
                 {
                     new SqlParameter("@p_Alias", alias),
                 };
-            dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+            dt = DataAccess.DataAccess.executeProcGetDataTable(Query, sqlParameter);
 
             return dt;
         }
@@ -177,7 +174,7 @@ namespace DataAccessLayer.BusinessLogic
             }
         }
 
-        public DataTable GetReportNameList(string Alias)
+        public DataTable GetReportNameList(string Alias, out string Designation)
         {
             try
             {
@@ -187,8 +184,9 @@ namespace DataAccessLayer.BusinessLogic
 
                 SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_EmailID", Alias) };
                 dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+                Designation = dt.Rows[0][0].ToString();
 
-                if (dt.Rows[0][0].ToString().Equals("TA"))
+                if (dt.Rows[0][0].ToString().Equals("TA") || dt.Rows[0][0].ToString().Equals("Manager"))
                 {
                     dt = new DataTable();
                     Query = "select FirstName + ' ' + LastName [Name], Alias from users order by [Name]";
@@ -228,15 +226,20 @@ namespace DataAccessLayer.BusinessLogic
             }
         }
 
-        public DataTable GetReportData(string TriageDate, string ReportType)
+        public DataTable GetReportData(string TriageDate, string ReportType, string Designation)
         {
             DataTable dt = new DataTable();
 
+            string TexttoAppend1 = "us.FirstName + ' ' + us.LastName [Name], us.Alias, us.EmailID [Email ID],";
             string Query = "";
 
             if (ReportType.Equals("1"))
             {
-                Query = "select us.FirstName + ' ' + us.LastName [Name], us.Alias, us.EmailID [Email ID],TriageLevel [Triage Level],TriageQuality [Triage Quality],Presentation,Comments";
+                if(Designation.Equals("Manager"))
+                    Query = "select " + TexttoAppend1 + " TriageLevel [Triage Level],TriageQuality [Triage Quality],Presentation,Comments";
+                else
+                    Query = "select TriageLevel [Triage Level],TriageQuality [Triage Quality],Presentation,Comments";
+
                 Query = Query + " from poll po inner join users us on (po.alias = us.emailid)";
                 Query = Query + " where TriageDate = @p_TriageDate and IsTriageAttended='Yes'";
             }

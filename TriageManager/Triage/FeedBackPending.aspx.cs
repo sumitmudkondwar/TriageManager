@@ -13,7 +13,7 @@ namespace TriageManager.Triage
         protected void Page_Load(object sender, EventArgs e)
         {
             TriagePollLogic triagePollLogic = new TriagePollLogic();
-            grdFeedBackPending.DataSource = triagePollLogic.GetFeedBackPending(HttpContext.Current.User.Identity.Name.ToString());
+            grdFeedBackPending.DataSource = triagePollLogic.GetFeedBackPending("sumudk@microsoft.com");//(HttpContext.Current.User.Identity.Name.ToString());
             grdFeedBackPending.DataBind();
         }
     }
