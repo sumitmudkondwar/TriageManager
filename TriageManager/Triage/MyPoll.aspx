@@ -80,7 +80,7 @@
                                 <td>What could have been better? </td>
                                 <td style="width: 30px">:</td>
                                 <td colspan="4">
-                                    <asp:TextBox CssClass="form-control" ID="txtComments" runat="server" Width="100%" TextMode="MultiLine"></asp:TextBox>
+                                    <asp:TextBox Height="120px" CssClass="form-control" ID="txtComments" runat="server" Width="100%" TextMode="MultiLine"></asp:TextBox>
                                 </td>
                             </tr>
                         </table>
@@ -90,7 +90,7 @@
                             <tr>
                                 <td>Reason:</td>
                                 <td>
-                                    <asp:TextBox CssClass="form-control" ID="txtReason" runat="server" TextMode="MultiLine" Width="100%" ></asp:TextBox>
+                                    <asp:TextBox CssClass="form-control" ID="txtReason" runat="server" TextMode="MultiLine" Width="500px" Height="150px" ></asp:TextBox>
                                 </td>
                             </tr>
                         </table>

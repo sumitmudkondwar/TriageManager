@@ -18,8 +18,8 @@ namespace TriageManager.Triage
                 Session["TriageDate"] = triagePollLogic.GetTriageDate(true).Rows[0][0].ToString();
             else if (triagePollLogic.GetValidTriageDate(Request["TriageDate"]))
                 Session["TriageDate"] = Request["TriageDate"].ToString();
-            else
-                ClearAll1();
+            //else if (Request["TriageDate"] == null && Session["TriageDate"] == null)
+            //    ClearAll1();
             //Response.Redirect("~/Default.aspx");
 
             lblIsTriageAttended.Text = Session["TriageDate"].ToString();
