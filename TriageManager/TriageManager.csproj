@@ -180,7 +180,6 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Images\7.jpg" />
     <Content Include="Images\hqdefault.jpg" />
-    <Content Include="index.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
