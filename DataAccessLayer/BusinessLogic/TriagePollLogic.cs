@@ -184,21 +184,25 @@ namespace DataAccessLayer.BusinessLogic
 
                 SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_EmailID", Alias) };
                 dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
-                Designation = dt.Rows[0][0].ToString();
+                Designation = string.Empty;
 
-                if (dt.Rows[0][0].ToString().Equals("TA") || dt.Rows[0][0].ToString().Equals("Manager"))
+                if (dt != null && dt.Rows.Count > 0)
                 {
-                    dt = new DataTable();
-                    Query = "select FirstName + ' ' + LastName [Name], Alias from users order by [Name]";
-                    sqlParameter = new SqlParameter[]
+                    Designation = dt.Rows[0][0].ToString();
+
+                    if (dt.Rows[0][0].ToString().Equals("TA") || dt.Rows[0][0].ToString().Equals("Manager"))
                     {
+                        dt = new DataTable();
+                        Query = "select FirstName + ' ' + LastName [Name], Alias from users order by [Name]";
+                        sqlParameter = new SqlParameter[]
+                        {
                         new SqlParameter("@p_Alias", Alias),
-                    };
-                    dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+                        };
+                        dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+                    }
+                    else
+                        dt = null;
                 }
-                else
-                    dt = null;
-                
                 return dt;
             }
             catch(Exception ex)
@@ -230,26 +234,26 @@ namespace DataAccessLayer.BusinessLogic
         {
             DataTable dt = new DataTable();
 
-            string TexttoAppend1 = "us.FirstName + ' ' + us.LastName [Name], us.Alias, us.EmailID [Email ID],";
-            string Query = "";
+            string Query = string.Empty;
 
             if (ReportType.Equals("1"))
             {
                 if(Designation.Equals("Manager"))
-                    Query = "select " + TexttoAppend1 + " TriageLevel [Triage Level],TriageQuality [Triage Quality],Presentation,Comments";
+                    Query = "select us.FirstName + ' ' + us.LastName [Name], us.Alias, us.EmailID [Email ID], ";
                 else
-                    Query = "select TriageLevel [Triage Level],TriageQuality [Triage Quality],Presentation,Comments";
+                    Query = "select ";
 
+                Query = Query + " IsTriageAttended,TriageLevel [Triage Level],TriageQuality [Triage Quality],Presentation,Comments,Reason ";
                 Query = Query + " from poll po inner join users us on (po.alias = us.emailid)";
-                Query = Query + " where TriageDate = @p_TriageDate and IsTriageAttended='Yes'";
+                Query = Query + " where TriageDate = @p_TriageDate ";
             }
+            //else if (ReportType.Equals("2"))
+            //{
+            //    Query = "select us.FirstName + ' ' + us.LastName [Name], us.Alias, us.EmailID [Email ID], Reason from poll po ";
+            //    Query = Query + " inner join users us on (po.alias = us.emailid)";
+            //    Query = Query + " where TriageDate = @p_TriageDate and IsTriageAttended='No'";
+            //}
             else if (ReportType.Equals("2"))
-            {
-                Query = "select us.FirstName + ' ' + us.LastName [Name], us.Alias, us.EmailID [Email ID], Reason from poll po ";
-                Query = Query + " inner join users us on (po.alias = us.emailid)";
-                Query = Query + " where TriageDate = @p_TriageDate and IsTriageAttended='No'";
-            }
-            else if (ReportType.Equals("3"))
             {
                 Query = "select FirstName + ' ' + LastName[List of Engineers Not Submitted Poll],EmailID [Email ID],Alias from Users where EmailID not in (select Alias from poll where TriageDate = @p_TriageDate)";
             }

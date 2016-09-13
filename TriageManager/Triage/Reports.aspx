@@ -7,9 +7,10 @@
         <div id="dvSelectEngineer" runat="server">
             <b>Report Type:</b>
             <asp:DropDownList ID="ddlReportType" Width="25%" CssClass="form-control" runat="server">
-                <asp:ListItem Text="Engineers Attended Triage" Value="1"></asp:ListItem>
-                <asp:ListItem Text="Engineers Not Attended Triage" Value="2"></asp:ListItem>
-                <asp:ListItem Text="Engineers Not Submitted Poll" Value="3"></asp:ListItem>
+                <%--<asp:ListItem Text="Engineers Attended Triage" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Engineers Not Attended Triage" Value="2"></asp:ListItem>--%>
+                <asp:ListItem Text="Engineers Submitted Poll" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Engineers Not Submitted Poll" Value="2"></asp:ListItem>
             </asp:DropDownList>
             <br />
             <b>Select Engineer:</b>

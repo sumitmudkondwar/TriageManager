@@ -30,7 +30,7 @@ namespace TriageManager.Triage
 
             Session["Designation"] = Designation;
 
-            if (dt != null)
+            if (dt != null && dt.Rows.Count > 0)
             {
                 dvSelectEngineer.Visible = true;
                 ddlEngineerName.DataTextField = "Name";
