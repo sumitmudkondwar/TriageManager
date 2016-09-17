@@ -22,6 +22,15 @@ namespace TriageManager.Triage {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvSelectEngineer;
         
         /// <summary>
+        /// lblErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+        
+        /// <summary>
         /// ddlReportType control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace TriageManager.Triage {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
+        
+        /// <summary>
+        /// btnSendMailforPollSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSendMailforPollSubmit;
         
         /// <summary>
         /// grdReport control.

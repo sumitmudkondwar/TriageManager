@@ -10,7 +10,7 @@ namespace TriageManager.Triage
             string html = @"<!DOCTYPE html><html><head><title></title><meta charset=""utf - 8"" /></head><body><div><p>Sumit HTML Page Latest</p></div></body></html>";
             string plainText = "";
             string subject = "Subject";
-            EmailClient.SendMail("sumudk@microsoft.com", "sumudk@microsoft.com", "SumitM", subject, html, plainText);
+            EmailClient.SendMail("vinku@microsoft.com", "sumudk@microsoft.com", "SumitM", subject, html, plainText);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DataAccessLayer.BusinessLogic;
 using System.Data;
+using System.Text;
 
 namespace TriageManager.Triage
 {
@@ -15,6 +16,10 @@ namespace TriageManager.Triage
         {
             if(!IsPostBack)
             {
+                btnSendMailforPollSubmit.Visible = false;
+                lblErrorMessage.Text = string.Empty;
+                btnSendMailforPollSubmit.Enabled = true;
+
                 lblMessage.Text = string.Empty;
                 PopulateDropdownlist();
             }
@@ -26,7 +31,8 @@ namespace TriageManager.Triage
             TriagePollLogic triagePollLogic = new TriagePollLogic();
             string Designation = string.Empty;
 
-            dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString(), out Designation);
+            //dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString(), out Designation);
+            dt = triagePollLogic.GetReportNameList("sumudk@microsoft.com", out Designation);
 
             Session["Designation"] = Designation;
 
@@ -65,23 +71,41 @@ namespace TriageManager.Triage
             TriagePollLogic triagePollLogic = new TriagePollLogic();
             dt = triagePollLogic.GetReportData(ddlTriageDates.SelectedValue.ToString(), ddlReportType.SelectedValue.ToString(), Session["Designation"].ToString());
 
-            grdReport.DataSource = dt;
-            grdReport.DataBind();
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                Session["ReportData"] = dt;
+
+                grdReport.DataSource = dt;
+                grdReport.DataBind();
+            }
 
             if (dt.Rows.Count == 0)
             {
                 lblMessage.Text = "No Records Found...";
                 lblMessage.ForeColor = System.Drawing.Color.Red;
             }
-            else
+            else if (dt.Rows.Count > 0)
             {
                 lblMessage.Text = "Total Records: " + dt.Rows.Count.ToString();
                 lblMessage.ForeColor = System.Drawing.Color.Green;
+            }
+
+            if (ddlReportType.SelectedValue == "2")
+            {
+                btnSendMailforPollSubmit.Visible = true;
+            }
+            else
+            {
+                btnSendMailforPollSubmit.Visible = false;
             }
         }
 
         protected void ddlEngineerName_SelectedIndexChanged(object sender, EventArgs e)
         {
+            btnSendMailforPollSubmit.Visible = false;
+            lblErrorMessage.Text = string.Empty;
+            btnSendMailforPollSubmit.Enabled = true;
+
             DataTable dt = new DataTable();
             TriagePollLogic triagePollLogic = new TriagePollLogic();
             dt = triagePollLogic.GetTriageDateList(ddlEngineerName.SelectedValue);
@@ -97,5 +121,57 @@ namespace TriageManager.Triage
 
             lblMessage.Text = string.Empty;
         }
+
+        protected void btnSendMailforPollSubmit_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToDateTime(ddlTriageDates.SelectedValue) < DateTime.Now.Date)
+            {
+                DataTable dt = new DataTable();
+                dt = Session["ReportData"] as DataTable;
+                string plainContent = "";
+                string Subject = "";
+                string HTMLContent = GetEmailContent(out plainContent, out Subject);
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    EmailClient.SendMail(dr["Email ID"].ToString(), HttpContext.Current.User.Identity.Name.ToString(), "SumitM", Subject, HTMLContent, plainContent);
+                }
+                
+                lblErrorMessage.Text = string.Empty;
+                btnSendMailforPollSubmit.Enabled = false;
+            }
+            else
+            {
+                lblErrorMessage.Text = "This Triage is not yet delivered...";
+            }
+        }
+
+        private string GetEmailContent(out string plainContent, out string Subject)
+        {
+            string content = "";
+            string toName = "";
+            string TriageGivenBy = "";
+            string PollURL = System.Configuration.ConfigurationManager.AppSettings["PollURL"];
+            string TriageDate = "";
+            string SenderName = "";
+            Subject = "";
+            plainContent = "";
+
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(@"<!DOCTYPE html><html><body style=""font - family:Calibri; font - size:14px""><div>");
+                sb.AppendFormat(@"<p>Hello {0},</p><p>You have not yet submitted your <b>POLL</b> for Triage given by: <b>""{1}""</b> delivered on date: <b><a href=""{2}"">""{3}""</a></b>.</p>", toName, TriageGivenBy, PollURL, TriageDate);
+                sb.AppendFormat(@"<p>Please submit your poll and help your colleague in improving their skills.</p><br /><p>Thanks,</p><p>{0}</p></div></body></html>", SenderName);
+                content = sb.ToString();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+            return content;
+        }
+
     }
 }
