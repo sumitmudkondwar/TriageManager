@@ -277,5 +277,55 @@ namespace DataAccessLayer.BusinessLogic
 
             return dt;
         }
+
+        public string GetTriageOwnerNames(string TriageDate)
+        {
+            string TriageOwner = "";
+            DataTable dt = new DataTable();
+
+            string Query = string.Empty;
+
+            Query = "select firstname + ' ' + lastname [Engineer] from triagecalender tc inner join users us on (tc.team1member=us.alias or tc.team2member=us.alias or tc.TA_Member=us.alias) where triagedate = @p_TriageDate";
+
+            SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_TriageDate", TriageDate) };
+            dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (TriageOwner.Equals(string.Empty))
+                    {
+                        TriageOwner = dr[0].ToString();
+                    }
+                    else
+                    {
+                        TriageOwner = TriageOwner + ", " + dr[0].ToString();
+                    }
+                }
+            }
+
+            return TriageOwner;
+        }
+
+        public string GetUserName(string EmailId)
+        {
+            string UserName = "";
+            DataTable dt = new DataTable();
+
+            string Query = string.Empty;
+
+            Query = "select firstname + ' ' + lastname[UserName] from users where emailid = @p_EmailId";
+
+            SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_EmailId", EmailId) };
+            dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                UserName = dt.Rows[0].ToString();
+            }
+
+            return UserName;
+        }
     }
 }

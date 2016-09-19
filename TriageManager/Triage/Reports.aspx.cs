@@ -31,8 +31,8 @@ namespace TriageManager.Triage
             TriagePollLogic triagePollLogic = new TriagePollLogic();
             string Designation = string.Empty;
 
-            //dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString(), out Designation);
-            dt = triagePollLogic.GetReportNameList("sumudk@microsoft.com", out Designation);
+            dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString(), out Designation);
+            //dt = triagePollLogic.GetReportNameList("sumudk@microsoft.com", out Designation);
 
             Session["Designation"] = Designation;
 
@@ -136,7 +136,7 @@ namespace TriageManager.Triage
 
                     foreach (DataRow dr in dt.Rows)
                     {
-                        HTMLContent = GetEmailContent(dr["Email ID"].ToString(), out Subject);
+                        HTMLContent = GetEmailContent(dr[0].ToString(), out Subject);
                         EmailClient.SendMail(dr["Email ID"].ToString(), HttpContext.Current.User.Identity.Name.ToString(), dr[0].ToString(), Subject, HTMLContent, plainContent);
                     }
                 }
@@ -152,11 +152,12 @@ namespace TriageManager.Triage
 
         private string GetEmailContent(string toName, out string Subject)
         {
+            TriagePollLogic triagepollLogic = new TriagePollLogic();
             string content = "";
-            string TriageGivenBy = "";
-            string PollURL = System.Configuration.ConfigurationManager.AppSettings["PollURL"];
+            string TriageGivenBy = triagepollLogic.GetTriageOwnerNames(ddlTriageDates.SelectedItem.Text);
+            string PollURL = System.Configuration.ConfigurationManager.AppSettings["PollURL"] + ".aspx?TriageDate=" + ddlTriageDates.SelectedItem.Text;
             string TriageDate = ddlTriageDates.SelectedItem.Text;
-            string SenderName = "";
+            string SenderName = triagepollLogic.GetUserName(HttpContext.Current.User.Identity.Name.ToString());
             Subject = string.Format("Triage Manager Updates, Submit your poll for Date: {0}. ", TriageDate);
 
             try
