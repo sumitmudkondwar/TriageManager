@@ -128,13 +128,17 @@ namespace TriageManager.Triage
             {
                 DataTable dt = new DataTable();
                 dt = Session["ReportData"] as DataTable;
-                string plainContent = "";
-                string Subject = "";
-                string HTMLContent = GetEmailContent(out plainContent, out Subject);
-
-                foreach (DataRow dr in dt.Rows)
+                if (dt != null && dt.Rows.Count > 0)
                 {
-                    EmailClient.SendMail(dr["Email ID"].ToString(), HttpContext.Current.User.Identity.Name.ToString(), "SumitM", Subject, HTMLContent, plainContent);
+                    string plainContent = "Please submit your poll and help your colleague in improving their skills.";
+                    string Subject = "";
+                    string HTMLContent = "";
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        HTMLContent = GetEmailContent(dr["Email ID"].ToString(), out Subject);
+                        EmailClient.SendMail(dr["Email ID"].ToString(), HttpContext.Current.User.Identity.Name.ToString(), dr[0].ToString(), Subject, HTMLContent, plainContent);
+                    }
                 }
                 
                 lblErrorMessage.Text = string.Empty;
@@ -146,16 +150,14 @@ namespace TriageManager.Triage
             }
         }
 
-        private string GetEmailContent(out string plainContent, out string Subject)
+        private string GetEmailContent(string toName, out string Subject)
         {
             string content = "";
-            string toName = "";
             string TriageGivenBy = "";
             string PollURL = System.Configuration.ConfigurationManager.AppSettings["PollURL"];
-            string TriageDate = "";
+            string TriageDate = ddlTriageDates.SelectedItem.Text;
             string SenderName = "";
-            Subject = "";
-            plainContent = "";
+            Subject = string.Format("Triage Manager Updates, Submit your poll for Date: {0}. ", TriageDate);
 
             try
             {

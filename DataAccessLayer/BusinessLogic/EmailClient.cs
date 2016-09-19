@@ -16,7 +16,7 @@ namespace DataAccessLayer.BusinessLogic
             mailMsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(plainText, null, MediaTypeNames.Text.Plain));
             mailMsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
             SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", Convert.ToInt32(587));
-            smtpClient.Send(mailMsg);
+            //smtpClient.Send(mailMsg);
         }
     }
 }

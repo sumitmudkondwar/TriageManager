@@ -31,8 +31,14 @@
         <asp:Button runat="server" ID="btnSendMailforPollSubmit" ToolTip="Send Mail to All the Enginees, informing to Submit their Poll." Text="Send Mail to Engineers" Width="15%" CssClass="form-control" OnClick="btnSendMailforPollSubmit_Click" />
         <br />
         <div>
-            <asp:GridView ID="grdReport" runat="server" AutoGenerateColumns="True" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
+            <asp:GridView ID="grdReport" runat="server" AutoGenerateColumns="false" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
                 RowStyle-CssClass="rows">
+                <Columns>
+                    <asp:BoundField DataField="List of Engineers Not Submitted Poll" HeaderText="List of Engineers Not Submitted Poll" />
+                    <asp:BoundField DataField="Email ID" HeaderText="Email ID" />
+                    <asp:BoundField DataField="Alias" HeaderText="Alias" />
+                    <%--<asp:ButtonField ButtonType="Button" Text="Send Mail" ControlStyle-CssClass="form-control" HeaderText="Send Mail" />--%>
+                </Columns>
             </asp:GridView>
         </div>
         <br />
