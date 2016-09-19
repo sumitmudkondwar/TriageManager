@@ -322,7 +322,7 @@ namespace DataAccessLayer.BusinessLogic
 
             if (dt != null && dt.Rows.Count > 0)
             {
-                UserName = dt.Rows[0].ToString();
+                UserName = dt.Rows[0][0].ToString();
             }
 
             return UserName;
