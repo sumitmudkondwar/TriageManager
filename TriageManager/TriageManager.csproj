@@ -228,6 +228,7 @@
     <Content Include="Triage\media1.mp4" />
     <Content Include="Triage\MyPoll.aspx" />
     <Content Include="Triage\MyProfile.aspx" />
+    <Content Include="Triage\NewContent.aspx" />
     <Content Include="Triage\Reports.aspx" />
     <Content Include="Triage\TriageCalender.aspx" />
     <Content Include="Triage\YourTriages.aspx" />
@@ -322,6 +323,13 @@
     </Compile>
     <Compile Include="Triage\MyProfile.aspx.designer.cs">
       <DependentUpon>MyProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Triage\NewContent.aspx.cs">
+      <DependentUpon>NewContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Triage\NewContent.aspx.designer.cs">
+      <DependentUpon>NewContent.aspx</DependentUpon>
     </Compile>
     <Compile Include="Triage\Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
