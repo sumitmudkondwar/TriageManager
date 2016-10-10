@@ -5,13 +5,130 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using System.Configuration;
+using Microsoft.Azure; // Namespace for CloudConfigurationManager
+using Microsoft.WindowsAzure.Storage; // Namespace for CloudStorageAccount
+using Microsoft.WindowsAzure.Storage.Blob; // Namespace for Blob storage types
+
 namespace TriageManager.Triage
 {
     public partial class NewContent : System.Web.UI.Page
     {
+        //https://azure.microsoft.com/en-in/documentation/articles/storage-dotnet-how-to-use-blobs/
+        // Retrieve storage account from connection string.
+        CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            
 
+        }
+
+        private void BlobCode()
+        {
+            // Retrieve storage account from connection string.
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+
+            // Create the blob client.
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+            // Retrieve reference to a previously created container.
+            CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
+
+            // Retrieve reference to a blob named "myblob".
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference("myblob");
+
+            // Create or overwrite the "myblob" blob with contents from a local file.
+            using (var fileStream = System.IO.File.OpenRead(@"path\myfile"))
+            {
+                blockBlob.UploadFromStream(fileStream);
+            }
+        }
+
+        private void ListBlobs()
+        {
+            // Create the blob client.
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+            // Retrieve reference to a previously created container.
+            CloudBlobContainer container = blobClient.GetContainerReference("photos");
+
+            // Loop over items within the container and output the length and URI.
+            foreach (IListBlobItem item in container.ListBlobs(null, false))
+            {
+                if (item.GetType() == typeof(CloudBlockBlob))
+                {
+                    CloudBlockBlob blob = (CloudBlockBlob)item;
+
+                    Console.WriteLine("Block blob of length {0}: {1}", blob.Properties.Length, blob.Uri);
+
+                }
+                else if (item.GetType() == typeof(CloudPageBlob))
+                {
+                    CloudPageBlob pageBlob = (CloudPageBlob)item;
+
+                    Console.WriteLine("Page blob of length {0}: {1}", pageBlob.Properties.Length, pageBlob.Uri);
+
+                }
+                else if (item.GetType() == typeof(CloudBlobDirectory))
+                {
+                    CloudBlobDirectory directory = (CloudBlobDirectory)item;
+
+                    Console.WriteLine("Directory: {0}", directory.Uri);
+                }
+            }
+        }
+
+        private void DownloadBlobs()
+        {
+            // Create the blob client.
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+            // Retrieve reference to a previously created container.
+            CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
+
+            // Retrieve reference to a blob named "photo1.jpg".
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference("photo1.jpg");
+
+            // Save blob contents to a file.
+            using (var fileStream = System.IO.File.OpenWrite(@"path\myfile"))
+            {
+                blockBlob.DownloadToStream(fileStream);
+            }
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            txtHeading.Text = string.Empty;
+            txtDescription.Text = string.Empty;
+            flupNewFiles.Attributes.Clear();
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            Guid guid = Guid.NewGuid();
+            UploadFilestoBlob(guid);
+        }
+
+        private void UploadFilestoBlob(Guid guid)
+        {
+            string FileNameList = "";
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
+            container.CreateIfNotExists();
+            container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+
+            CloudBlockBlob blockBlob;
+
+            if (flupNewFiles.HasFile)
+            {
+                foreach (HttpPostedFile uploadedFile in flupNewFiles.PostedFiles)
+                {
+                    FileNameList = FileNameList + "|" + guid.ToString() + "_" + uploadedFile.FileName;
+                    blockBlob = container.GetBlockBlobReference(guid.ToString() + "_" + uploadedFile.FileName);
+                    blockBlob.UploadFromStream(uploadedFile.InputStream);
+                }
+            }
         }
     }
 }

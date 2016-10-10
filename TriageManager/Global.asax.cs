@@ -20,7 +20,7 @@ namespace TriageManager
 
         void Application_Error(object sender, EventArgs e)
         {
-            Response.Redirect("~/CustomError.aspx");
+            //Response.Redirect("~/CustomError.aspx");
         }
     }
 }

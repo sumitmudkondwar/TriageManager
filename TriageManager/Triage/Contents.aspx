@@ -13,7 +13,7 @@
     <script src= "//amp.azure.net/libs/amp/1.3.0/azuremediaplayer.min.js"></script>    
        --%>     
     <video id="azuremediaplayer"  class="azuremediaplayer amp-default-skin amp-big-play-centered" controls autoplay style="vertical-align:middle;" width="640" height="400" poster="" data-setup='{"nativeControlsForTouch": false}' tabindex="0">
-        <source src="media1.mp4" type="video/mp4" />
+        <source src="https://aztriagestorage.blob.core.windows.net/mycontainer/sample.mp4" type="video/mp4" />
         <p class="amp-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video</p>
     </video>
         </td>

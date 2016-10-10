@@ -13,7 +13,8 @@
     </asp:PlaceHolder>
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
+    <%--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>--%>
 </head>
 <body>
     <form runat="server">
@@ -54,7 +55,7 @@
                         <li><a runat="server" href="~/Triage/MyPoll">My Poll</a></li>
                         <li><a runat="server" href="~/Triage/Reports">Reports</a></li>
                         <li><a runat="server" href="~/Triage/TriageCalender">Triage Calender</a></li>
-                        <li><a runat="server" href="~/Triage/NewContent">Add Content</a></li>
+                        <li><a runat="server" href="~/Triage/KnowledgeBase">Knowledge Base</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
