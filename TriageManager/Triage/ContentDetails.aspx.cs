@@ -11,6 +11,9 @@ namespace TriageManager.Triage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string GUID = Request["GUID"].ToString();
+            lblTopic.Text = Request["ContentHeading"].ToString();
+
 
         }
     }
