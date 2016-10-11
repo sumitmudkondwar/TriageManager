@@ -215,6 +215,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\TriageManager - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Images\200w.gif" />
     <Content Include="Images\7.jpg" />
     <Content Include="Images\hqdefault.jpg" />
     <Content Include="Scripts\bootstrap.js" />
@@ -267,10 +268,12 @@
     <Content Include="SQL_Scripts\pr_InsertPoll.sql" />
     <Content Include="SQL_Scripts\TriageCalender.sql" />
     <Content Include="test.html" />
+    <Content Include="Triage\ContentDetails.aspx" />
     <Content Include="Triage\Contents.aspx" />
     <Content Include="Triage\EmailSender.aspx" />
     <Content Include="Triage\FeedBackPending.aspx" />
     <Content Include="Triage\KnowledgeBase.aspx" />
+    <Content Include="Triage\ListContents.aspx" />
     <Content Include="Triage\media1.mp4" />
     <Content Include="Triage\MyPoll.aspx" />
     <Content Include="Triage\MyProfile.aspx" />
@@ -336,6 +339,13 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Triage\ContentDetails.aspx.cs">
+      <DependentUpon>ContentDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Triage\ContentDetails.aspx.designer.cs">
+      <DependentUpon>ContentDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Triage\Contents.aspx.cs">
       <DependentUpon>Contents.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -363,6 +373,13 @@
     </Compile>
     <Compile Include="Triage\KnowledgeBase.aspx.designer.cs">
       <DependentUpon>KnowledgeBase.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Triage\ListContents.aspx.cs">
+      <DependentUpon>ListContents.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Triage\ListContents.aspx.designer.cs">
+      <DependentUpon>ListContents.aspx</DependentUpon>
     </Compile>
     <Compile Include="Triage\MyPoll.aspx.cs">
       <DependentUpon>MyPoll.aspx</DependentUpon>

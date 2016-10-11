@@ -9,6 +9,9 @@ using System.Configuration;
 using Microsoft.Azure; // Namespace for CloudConfigurationManager
 using Microsoft.WindowsAzure.Storage; // Namespace for CloudStorageAccount
 using Microsoft.WindowsAzure.Storage.Blob; // Namespace for Blob storage types
+using DataAccessLayer.Models;
+using DataAccessLayer.BusinessLogic;
+using System.IO;
 
 namespace TriageManager.Triage
 {
@@ -107,10 +110,21 @@ namespace TriageManager.Triage
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             Guid guid = Guid.NewGuid();
-            UploadFilestoBlob(guid);
+            string FileNameList = "";
+            FileNameList = UploadFilestoBlob(guid);
+
+            TriageContent triageContent = new TriageContent();
+            TriageContentLogic triageContentLogic = new TriageContentLogic();
+            
+            triageContent.ContentHeading = txtHeading.Text;
+            triageContent.ContentDescription = txtDescription.Text;
+            triageContent.EmailId = "sumudk@microsoft.com";//HttpContext.Current.User.ToString();
+            triageContent.FileNameList = FileNameList;
+
+            triageContentLogic.AddNewContent(triageContent);
         }
 
-        private void UploadFilestoBlob(Guid guid)
+        private string UploadFilestoBlob(Guid guid)
         {
             string FileNameList = "";
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
@@ -124,11 +138,13 @@ namespace TriageManager.Triage
             {
                 foreach (HttpPostedFile uploadedFile in flupNewFiles.PostedFiles)
                 {
-                    FileNameList = FileNameList + "|" + guid.ToString() + "_" + uploadedFile.FileName;
-                    blockBlob = container.GetBlockBlobReference(guid.ToString() + "_" + uploadedFile.FileName);
+                    FileNameList = FileNameList + "|" + guid.ToString() + "_" + Path.GetFileName(uploadedFile.FileName);
+                    blockBlob = container.GetBlockBlobReference(guid.ToString() + "_" + Path.GetFileName(uploadedFile.FileName));
                     blockBlob.UploadFromStream(uploadedFile.InputStream);
                 }
             }
+
+            return FileNameList;
         }
     }
 }

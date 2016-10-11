@@ -59,8 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogic\EmailClient.cs" />
+    <Compile Include="BusinessLogic\TriageContentLogic.cs" />
     <Compile Include="BusinessLogic\TriagePollLogic.cs" />
     <Compile Include="DataAccess\DataAccess.cs" />
+    <Compile Include="Models\TriageContent.cs" />
     <Compile Include="Models\TriagePoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

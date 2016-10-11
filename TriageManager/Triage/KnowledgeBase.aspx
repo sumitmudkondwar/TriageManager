@@ -8,7 +8,7 @@
             <ul style="list-style:none">
                 <li><a runat="server" class="form-control" style="width:20%; text-decoration:none" href="~/Triage/NewContent">Add New Content</a></li>
                 <br />
-                <li><a runat="server" class="form-control" style="width:20%; text-decoration:none" href="~/Triage/NewContent">Content List</a></li>
+                <li><a runat="server" class="form-control" style="width:20%; text-decoration:none" href="~/Triage/ListContents">Content List</a></li>
             </ul>
         </div>
     </asp:PlaceHolder>
