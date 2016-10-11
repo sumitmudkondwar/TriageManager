@@ -8,12 +8,11 @@
             <asp:GridView ID="grdListContents" runat="server" AutoGenerateColumns="False" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
             RowStyle-CssClass="rows">
                 <Columns>
-                    <%--<asp:BoundField DataField="ContentHeading" HeaderText="Content Heading" />--%>
-                    <asp:HyperLinkField DataTextField="ContentHeading" 
-                         
-                        NavigateUrl='<%# Eval("ContentHeading","~/Triage/ContentDetails.aspx?ContentGUID{0}" ) %>'
-                        DataNavigateUrlFields="ContentHeading" HeaderText="Content Heading" />
+                    <asp:BoundField DataField="ContentHeading" HeaderText="Content Heading" />
                     <asp:BoundField DataField="EmailId" HeaderText="EmailId" />
+                    <asp:HyperLinkField DataTextField="ContentHeading" DataNavigateUrlFormatString="~/Triage/ContentDetails.aspx?GUID={0}"
+                        DataNavigateUrlFields="contentGUID" />
+                    
                 </Columns>
             </asp:GridView>
         </div>

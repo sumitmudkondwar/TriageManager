@@ -41,7 +41,7 @@ namespace DataAccessLayer.BusinessLogic
                 {
                     new SqlParameter("@p_Alias", "test"),
                 };
-            dt = DataAccess.DataAccess.executeGetDataTable("select MainContentId,ContentHeading,ContentDescription,ContentGUID,EmailId from MainContent", sqlParameter);
+            dt = DataAccess.DataAccess.executeGetDataTable("select MainContentId,ContentHeading,ContentDescription,ContentGUID,EmailId,'~/Triage/ContentDetails.aspx?ContentGUID='+contentGUID [URL] from MainContent", sqlParameter);
 
             return dt;
         }

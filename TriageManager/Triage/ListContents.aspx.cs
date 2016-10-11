@@ -16,6 +16,8 @@ namespace TriageManager.Triage
 
             grdListContents.DataSource = triageContentLogic.GetTriageContents();
             grdListContents.DataBind();
+
+            
         }
     }
 }
