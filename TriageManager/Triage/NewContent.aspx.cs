@@ -107,21 +107,37 @@ namespace TriageManager.Triage
             flupNewFiles.Attributes.Clear();
         }
 
+        private bool Validations()
+        {
+            if (txtDescription.Text.Trim().Equals(string.Empty))
+                return false;
+            else if (txtHeading.Text.Trim().Equals(string.Empty))
+                return false;
+
+            return true;
+        }
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            Guid guid = Guid.NewGuid();
-            string FileNameList = "";
-            FileNameList = UploadFilestoBlob(guid);
+            if (Validations())
+            {
+                Guid guid = Guid.NewGuid();
+                string FileNameList = "";
+                FileNameList = UploadFilestoBlob(guid);
 
-            TriageContent triageContent = new TriageContent();
-            TriageContentLogic triageContentLogic = new TriageContentLogic();
-            
-            triageContent.ContentHeading = txtHeading.Text;
-            triageContent.ContentDescription = txtDescription.Text;
-            triageContent.EmailId = "sumudk@microsoft.com";//HttpContext.Current.User.ToString();
-            triageContent.FileNameList = FileNameList;
+                TriageContent triageContent = new TriageContent();
+                TriageContentLogic triageContentLogic = new TriageContentLogic();
 
-            triageContentLogic.AddNewContent(triageContent);
+                triageContent.ContentHeading = txtHeading.Text;
+                triageContent.ContentDescription = txtDescription.Text;
+                triageContent.EmailId = "sumudk@microsoft.com";//HttpContext.Current.User.ToString();
+                triageContent.FileNameList = FileNameList;
+
+                triageContentLogic.AddNewContent(triageContent);
+
+                txtHeading.Text = string.Empty;
+                txtDescription.Text = string.Empty;
+            }
         }
 
         private string UploadFilestoBlob(Guid guid)

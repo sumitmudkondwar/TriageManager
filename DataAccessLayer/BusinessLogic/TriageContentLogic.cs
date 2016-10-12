@@ -45,5 +45,31 @@ namespace DataAccessLayer.BusinessLogic
 
             return dt;
         }
+
+        public DataTable GetTriageContentsGUID(string GUID)
+        {
+            DataTable dt = new DataTable();
+
+            SqlParameter[] sqlParameter = new SqlParameter[]
+                {
+                    new SqlParameter("@p_ContentGUID", GUID),
+                };
+            dt = DataAccess.DataAccess.executeGetDataTable("select MainContentId,ContentHeading,ContentDescription,ContentGUID, FirstName + ' ' + LastName 'Contributor' from MainContent MC inner join users US on (MC.emailid = US.EmailID) where ContentGUID = @p_ContentGUID", sqlParameter);
+
+            return dt;
+        }
+
+        public DataTable GetTriageContentsFiles(string GUID)
+        {
+            DataTable dt = new DataTable();
+
+            SqlParameter[] sqlParameter = new SqlParameter[]
+                {
+                    new SqlParameter("@p_ContentGUID", GUID),
+                };
+            dt = DataAccess.DataAccess.executeGetDataTable("select BlobPath, BlobPath from FileNameContent where ContentGUID = @p_ContentGUID", sqlParameter);
+
+            return dt;
+        }
     }
 }
