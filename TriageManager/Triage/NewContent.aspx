@@ -5,6 +5,11 @@
     <hr />
     <asp:PlaceHolder runat="server">
         <div>
+            <asp:Label ID="lblErrorMessage" ForeColor="Red" runat="server"></asp:Label>
+            <asp:Label ID="lblSuccessMessage" ForeColor="Green" runat="server"></asp:Label>
+        </div>
+        <br />
+        <div>
             KB Subject:<b style="color: red">*</b>
             <p>
                 <asp:TextBox runat="server" CssClass="form-control" Width="100%" ID="txtHeading"></asp:TextBox>

@@ -266,6 +266,7 @@
     <Content Include="SQL_Scripts\pr_getTriageCalender.sql" />
     <Content Include="SQL_Scripts\pr_getYourTriages.sql" />
     <Content Include="SQL_Scripts\pr_InsertPoll.sql" />
+    <Content Include="SQL_Scripts\SmeTpoics.sql" />
     <Content Include="SQL_Scripts\TriageCalender.sql" />
     <Content Include="test.html" />
     <Content Include="Triage\ContentDetails.aspx" />
