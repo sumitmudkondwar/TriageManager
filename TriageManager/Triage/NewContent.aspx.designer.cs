@@ -31,13 +31,22 @@ namespace TriageManager.Triage {
         protected global::System.Web.UI.WebControls.Label lblSuccessMessage;
         
         /// <summary>
-        /// txtHeading control.
+        /// ddlHeading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHeading;
+        protected global::System.Web.UI.WebControls.DropDownList ddlHeading;
+        
+        /// <summary>
+        /// ddlContentLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlContentLevel;
         
         /// <summary>
         /// txtDescription control.

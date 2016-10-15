@@ -23,8 +23,14 @@ namespace TriageManager.Triage
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-
+            if (!IsPostBack)
+            {
+                TriageContentLogic triageContentLogic = new TriageContentLogic();
+                ddlHeading.DataTextField = "TopicName";
+                ddlHeading.DataValueField = "SmeTopicsId";
+                ddlHeading.DataSource = triageContentLogic.GetSMETopics();
+                ddlHeading.DataBind();
+            }
         }
 
         private void BlobCode()
@@ -102,24 +108,15 @@ namespace TriageManager.Triage
 
         protected void btnClear_Click(object sender, EventArgs e)
         {
-            txtHeading.Text = string.Empty;
             txtDescription.Text = string.Empty;
             flupNewFiles.Attributes.Clear();
-        }
-
-        private bool Validations()
-        {
-            if (txtDescription.Text.Trim().Equals(string.Empty))
-                return false;
-            else if (txtHeading.Text.Trim().Equals(string.Empty))
-                return false;
-
-            return true;
+            lblErrorMessage.Text = string.Empty;
+            lblSuccessMessage.Text = string.Empty;
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (Validations())
+            if (flupNewFiles.HasFile)
             {
                 Guid guid = Guid.NewGuid();
                 string FileNameList = "";
@@ -128,15 +125,21 @@ namespace TriageManager.Triage
                 TriageContent triageContent = new TriageContent();
                 TriageContentLogic triageContentLogic = new TriageContentLogic();
 
-                triageContent.ContentHeading = txtHeading.Text;
+                triageContent.SmeTopicsId = Convert.ToInt32(ddlHeading.SelectedItem.Value);
+                triageContent.ContentLevel = Convert.ToInt32(ddlContentLevel.SelectedItem.Text);
                 triageContent.ContentDescription = txtDescription.Text;
                 triageContent.EmailId = "sumudk@microsoft.com";//HttpContext.Current.User.ToString();
                 triageContent.FileNameList = FileNameList;
 
                 triageContentLogic.AddNewContent(triageContent);
 
-                txtHeading.Text = string.Empty;
                 txtDescription.Text = string.Empty;
+
+                lblSuccessMessage.Text = "Content Successfully Added to KB.";
+            }
+            else
+            {
+                lblErrorMessage.Text = "Select atleast one File.";
             }
         }
 

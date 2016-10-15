@@ -1,4 +1,4 @@
-create table SmeTpoics
+create table SmeTopics
 (
 	SmeTpoicsId int identity(1,1) primary key clustered,
 	TopicName varchar(200)

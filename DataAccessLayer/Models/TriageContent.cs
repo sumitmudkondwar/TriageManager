@@ -24,6 +24,10 @@ namespace DataAccessLayer.Models
 
         private string _FileNameList;
 
+        private int _SmeTopicsId;
+
+        private int _ContentLevel;
+
         public int MainContentId
         {
             get
@@ -125,6 +129,32 @@ namespace DataAccessLayer.Models
             set
             {
                 _FileNameList = value;
+            }
+        }
+
+        public int SmeTopicsId
+        {
+            get
+            {
+                return _SmeTopicsId;
+            }
+
+            set
+            {
+                _SmeTopicsId = value;
+            }
+        }
+
+        public int ContentLevel
+        {
+            get
+            {
+                return _ContentLevel;
+            }
+
+            set
+            {
+                _ContentLevel = value;
             }
         }
     }

@@ -10,31 +10,42 @@
         </div>
         <br />
         <div>
-            KB Subject:<b style="color: red">*</b>
+            Topic:<b style="color: red">*</b>
             <p>
-                <asp:TextBox runat="server" CssClass="form-control" Width="100%" ID="txtHeading"></asp:TextBox>
+                <asp:DropDownList ID="ddlHeading" runat="server" CssClass="form-control" Width="60%" ToolTip="Select the subject for which you want to share your knowledge with everyone."></asp:DropDownList>
             </p>
         </div>
         <div>
-            Description:<b style="color: red">*</b>
+            Content Level:<b style="color:red">*</b>
             <p>
-                <asp:TextBox ID="txtDescription" CssClass="form-control" TextMode="MultiLine" Width="60%" Height="200px" runat="server"></asp:TextBox>
+                <asp:DropDownList ID="ddlContentLevel" ToolTip="Select the level of content e.g. 100 for 'How to do this' topic" runat="server" CssClass="form-control" Width="60%">
+                    <asp:ListItem Text="100" Value="100"></asp:ListItem>
+                    <asp:ListItem Text="200" Value="200"></asp:ListItem>
+                    <asp:ListItem Text="300" Value="300"></asp:ListItem>
+                    <asp:ListItem Text="400" Value="400"></asp:ListItem>
+                </asp:DropDownList>
+            </p>
+        </div>
+        <div>
+            Description:
+            <p>
+                <asp:TextBox ID="txtDescription" CssClass="form-control" ToolTip="You can add some short description here for your topic" TextMode="MultiLine" Width="60%" Height="100px" runat="server"></asp:TextBox>
             </p>
         </div>
         <div>
             <p>
-                <asp:FileUpload ID="flupNewFiles" AllowMultiple="true" runat="server" />
+                <asp:FileUpload ID="flupNewFiles" AllowMultiple="true" runat="server" ToolTip="You can upload multiple files here to share with everyone in the team." />
             </p>
         </div>
         <div>
             <table>
                 <tr>
                     <td>
-                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" Width="100%" CssClass="form-control" OnClick="btnSubmit_Click" />
+                        <asp:Button ID="btnSubmit" ToolTip="Click to Share your Contents..." runat="server" Text="Submit" Width="100%" CssClass="form-control" OnClick="btnSubmit_Click" />
                     </td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td>
-                        <asp:Button ID="btnClear" runat="server" Text="Clear All" Width="100%" CssClass="form-control" OnClick="btnClear_Click" />
+                        <asp:Button ID="btnClear" runat="server" Text="Clear All" ToolTip="Click to Clear this form." Width="100%" CssClass="form-control" OnClick="btnClear_Click" />
                     </td>
                 </tr>
             </table>
