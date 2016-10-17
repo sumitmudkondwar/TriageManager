@@ -27,9 +27,9 @@
             </p>
         </div>
         <div>
-            Description:
+            URL(links to blogs) you want to share with everyone:
             <p>
-                <asp:TextBox ID="txtDescription" CssClass="form-control" ToolTip="You can add some short description here for your topic" TextMode="MultiLine" Width="60%" Height="100px" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtDescription" CssClass="form-control" TextMode="MultiLine" ToolTip="You can add some url here you want to share with everyone." Width="60%" runat="server"></asp:TextBox>
             </p>
         </div>
         <div>
