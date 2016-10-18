@@ -35,6 +35,7 @@ namespace TriageManager.Triage
 
             DataTable dt = new DataTable();
             DataTable newDT = new DataTable();
+            newDT.Columns.Add("Row");
             newDT.Columns.Add("FileList");
             newDT.Columns.Add("FilePath");
 
@@ -44,7 +45,10 @@ namespace TriageManager.Triage
             
             foreach (DataRow dr in dt.Rows)
             {
-                newDT.Rows.Add(dr[0].ToString().Split('_')[1].ToString(), dr[0].ToString());
+                if (dr[3].ToString().Equals("Files"))
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), dr[1].ToString());
+                else
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString());
             }
 
             grd100.DataSource = newDT;
@@ -59,7 +63,10 @@ namespace TriageManager.Triage
 
             foreach (DataRow dr in dt.Rows)
             {
-                newDT.Rows.Add(dr[0].ToString().Split('_')[1].ToString(), dr[0].ToString());
+                if (dr[3].ToString().Equals("Files"))
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), dr[1].ToString());
+                else
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString());
             }
 
             grd200.DataSource = newDT;
@@ -74,7 +81,10 @@ namespace TriageManager.Triage
 
             foreach (DataRow dr in dt.Rows)
             {
-                newDT.Rows.Add(dr[0].ToString().Split('_')[1].ToString(), dr[0].ToString());
+                if (dr[3].ToString().Equals("Files"))
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), dr[1].ToString());
+                else
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString());
             }
 
             grd300.DataSource = newDT;
@@ -89,7 +99,10 @@ namespace TriageManager.Triage
 
             foreach (DataRow dr in dt.Rows)
             {
-                newDT.Rows.Add(dr[0].ToString().Split('_')[1].ToString(), dr[0].ToString());
+                if (dr[3].ToString().Equals("Files"))
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), dr[1].ToString());
+                else
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString());
             }
 
             grd400.DataSource = newDT;

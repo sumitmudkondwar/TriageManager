@@ -116,7 +116,11 @@ namespace TriageManager.Triage
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (flupNewFiles.HasFile)
+            if (txtDescription.Text.Trim().Equals(string.Empty) && flupNewFiles.HasFile == false)
+            {
+                lblErrorMessage.Text = "Either of Entering URL or File Upload is Mandatory!!!";
+            }
+            else
             {
                 Guid guid = Guid.NewGuid();
                 string FileNameList = "";
@@ -136,10 +140,6 @@ namespace TriageManager.Triage
                 txtDescription.Text = string.Empty;
 
                 lblSuccessMessage.Text = "Content Successfully Added to KB.";
-            }
-            else
-            {
-                lblErrorMessage.Text = "Select atleast one File.";
             }
         }
 

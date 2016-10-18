@@ -3,84 +3,87 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %></h2>
     <hr />
+    <style>
+      #accordion-resizer {
+        padding: 10px;
+        width: 60%;
+        height: 350px;
+      }
+    </style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#accordion").accordion({
+                heightStyle: "fill"
+            });
+
+            $("#accordion-resizer").resizable({
+                minHeight: 140,
+                minWidth: 200,
+                resize: function () {
+                    $("#accordion").accordion("refresh");
+                }
+            });
+        });
+    </script>
     <asp:PlaceHolder runat="server">
         <div>
-            <%--<asp:GridView ID="grdListContents" runat="server" AutoGenerateColumns="False" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
-            RowStyle-CssClass="rows">
-                <Columns>
-                    <asp:BoundField DataField="Contributor" HeaderText="Contributor" />
-                    <asp:HyperLinkField DataTextField="ContentHeading" DataNavigateUrlFormatString="~/Triage/ContentDetails.aspx?GUID={0}&ContentHeading={1}"
-                        DataNavigateUrlFields="contentGUID,ContentHeading" HeaderText="Topic to Learn" />
-                </Columns>
-            </asp:GridView>--%>
             Select Topic:
             <p>
                 <asp:DropDownList ID="ddlHeading" runat="server" CssClass="form-control" Width="60%" OnSelectedIndexChanged="ddlHeading_SelectedIndexChanged" AutoPostBack="true" ToolTip="Select the subject for which you want to learn."></asp:DropDownList>
             </p>
         </div>
-        <div>
-            <table border="1" style="width:100%">
-                <tr>
-                    <td style="width:10%; text-align:center">
-                        <b>Level</b>
-                    </td>
-                    <td style="width:90%;">
-                        <b>Content</b>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:10%; text-align:center">
-                        100
-                    </td>
-                    <td>
-                        <asp:GridView ID="grd100"  AutoGenerateColumns="false" runat="server" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
-                            RowStyle-CssClass="rows">
+        <div id="accordion-resizer" class="ui-widget-content">
+            <div id="accordion">
+                <h3>Level 100</h3>
+                <div>
+                    <p>
+                        <asp:GridView ID="grd100" Width="100%" AutoGenerateColumns="false" runat="server" GridLines="None" ShowHeader="false">
                             <Columns>
-                                <asp:HyperLinkField DataTextField="FileList" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath"
+                                <%--<asp:BoundField DataField="Row" HeaderText="" />--%>
+                                <asp:HyperLinkField DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath"
                                     HeaderText="File List" />
                             </Columns>
                         </asp:GridView>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:10%; text-align:center">
-                        200
-                    </td>
-                    <td>
-                        <asp:GridView ID="grd200"  AutoGenerateColumns="false" runat="server" col>
+                    </p>
+                </div>
+                <h3>Level 200</h3>
+                <div>
+                    <p>
+                        <asp:GridView ID="grd200" Width="100%" AutoGenerateColumns="false" runat="server" GridLines="None" ShowHeader="false">
                             <Columns>
-                                <asp:HyperLinkField DataTextField="FileList" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath" />
+                                <%--<asp:BoundField DataField="Row" HeaderText="" />--%>
+                                <asp:HyperLinkField DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath" />
                             </Columns>
                         </asp:GridView>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:10%; text-align:center">
-                        300
-                    </td>
-                    <td>
-                        <asp:GridView ID="grd300"  AutoGenerateColumns="false" runat="server">
+                    </p>
+                </div>
+                <h3>Level 300</h3>
+                <div>
+                    <p>
+                        <asp:GridView ID="grd300" Width="100%" AutoGenerateColumns="false" runat="server" GridLines="None" ShowHeader="false">
                             <Columns>
-                                <asp:HyperLinkField DataTextField="FileList" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath" />
+                                <%--<asp:BoundField DataField="Row" HeaderText="" />--%>
+                                <asp:HyperLinkField DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath" />
                             </Columns>
                         </asp:GridView>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:10%; text-align:center">
-                        400
-                    </td>
-                    <td>
-                        <asp:GridView ID="grd400"  AutoGenerateColumns="false" runat="server" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
-                            RowStyle-CssClass="rows">
+                    </p>
+                </div>
+                <h3>Level 400</h3>
+                <div>
+                    <p>
+                        <asp:GridView ID="grd400" Width="100%" AutoGenerateColumns="false" runat="server" GridLines="None" ShowHeader="false">
                             <Columns>
-                                <asp:HyperLinkField DataTextField="FileList" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath"
+                                <%--<asp:BoundField DataField="Row" HeaderText="" />--%>
+                                <asp:HyperLinkField DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath"
                                     HeaderText="File List" />
                             </Columns>
                         </asp:GridView>
-                    </td>
-                </tr>
-            </table>
+                    </p>
+                </div>
+            </div>
         </div>
     </asp:PlaceHolder>
 </asp:Content>
