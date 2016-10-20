@@ -40,11 +40,20 @@
                 <h3>Level 100</h3>
                 <div>
                     <p>
-                        <asp:GridView ID="grd100" Width="100%" AutoGenerateColumns="false" runat="server" GridLines="None" ShowHeader="false">
+                        <asp:GridView ID="grd100" Width="100%" AutoGenerateColumns="false" runat="server">
                             <Columns>
-                                <%--<asp:BoundField DataField="Row" HeaderText="" />--%>
-                                <asp:HyperLinkField DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath"
-                                    HeaderText="File List" />
+                                <asp:HyperLinkField HeaderText="Level 100 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
+                                <asp:TemplateField HeaderText = "Update Content Level">
+                                    <ItemTemplate>
+                                        <asp:DropDownList ID="ddlTriageLevel100" runat="server">
+                                            <asp:ListItem Text="100" Value="100" Selected="True" Enabled="false"></asp:ListItem>
+                                            <asp:ListItem Text="200" Value="200"></asp:ListItem>
+                                            <asp:ListItem Text="300" Value="300"></asp:ListItem>
+                                            <asp:ListItem Text="400" Value="400"></asp:ListItem>
+                                        </asp:DropDownList>
+                                        <asp:Button ID="btnTriageLevel100" runat="server" Text="Update" OnClick="btnTriageLevel100_Click"/>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                     </p>
@@ -52,10 +61,20 @@
                 <h3>Level 200</h3>
                 <div>
                     <p>
-                        <asp:GridView ID="grd200" Width="100%" AutoGenerateColumns="false" runat="server" GridLines="None" ShowHeader="false">
+                        <asp:GridView ID="grd200" Width="100%" AutoGenerateColumns="false" runat="server">
                             <Columns>
-                                <%--<asp:BoundField DataField="Row" HeaderText="" />--%>
-                                <asp:HyperLinkField DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath" />
+                                <asp:HyperLinkField HeaderText="Level 200 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
+                                <asp:TemplateField HeaderText = "Update Content Level">
+                                    <ItemTemplate>
+                                        <asp:DropDownList ID="ddlTriageLevel200" runat="server">
+                                            <asp:ListItem Text="100" Value="100"></asp:ListItem>
+                                            <asp:ListItem Text="200" Value="200" Selected="True" Enabled="false"></asp:ListItem>
+                                            <asp:ListItem Text="300" Value="300"></asp:ListItem>
+                                            <asp:ListItem Text="400" Value="400"></asp:ListItem>
+                                        </asp:DropDownList>
+                                        <asp:Button ID="btnTriageLevel200" runat="server" Text="Update" OnClick="btnTriageLevel200_Click" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                     </p>
@@ -63,10 +82,20 @@
                 <h3>Level 300</h3>
                 <div>
                     <p>
-                        <asp:GridView ID="grd300" Width="100%" AutoGenerateColumns="false" runat="server" GridLines="None" ShowHeader="false">
+                        <asp:GridView ID="grd300" Width="100%" AutoGenerateColumns="false" runat="server">
                             <Columns>
-                                <%--<asp:BoundField DataField="Row" HeaderText="" />--%>
-                                <asp:HyperLinkField DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath" />
+                                <asp:HyperLinkField HeaderText="Level 300 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
+                                <asp:TemplateField HeaderText = "Update Content Level">
+                                    <ItemTemplate>
+                                        <asp:DropDownList ID="ddlTriageLevel300" runat="server">
+                                            <asp:ListItem Text="100" Value="100"></asp:ListItem>
+                                            <asp:ListItem Text="200" Value="200"></asp:ListItem>
+                                            <asp:ListItem Text="300" Value="300" Selected="True" Enabled="false"></asp:ListItem>
+                                            <asp:ListItem Text="400" Value="400"></asp:ListItem>
+                                        </asp:DropDownList>
+                                        <asp:Button ID="btnTriageLevel300" runat="server" Text="Update" OnClick="btnTriageLevel300_Click" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                     </p>
@@ -74,11 +103,20 @@
                 <h3>Level 400</h3>
                 <div>
                     <p>
-                        <asp:GridView ID="grd400" Width="100%" AutoGenerateColumns="false" runat="server" GridLines="None" ShowHeader="false">
+                        <asp:GridView ID="grd400" Width="100%" AutoGenerateColumns="false" runat="server">
                             <Columns>
-                                <%--<asp:BoundField DataField="Row" HeaderText="" />--%>
-                                <asp:HyperLinkField DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="https://aztriagestorage.blob.core.windows.net/mycontainer/{0}" DataNavigateUrlFields="FilePath"
-                                    HeaderText="File List" />
+                                <asp:HyperLinkField HeaderText="Level 400 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
+                                <asp:TemplateField HeaderText = "Update Content Level">
+                                    <ItemTemplate>
+                                        <asp:DropDownList ID="ddlTriageLevel400" runat="server">
+                                            <asp:ListItem Text="100" Value="100"></asp:ListItem>
+                                            <asp:ListItem Text="200" Value="200"></asp:ListItem>
+                                            <asp:ListItem Text="300" Value="300"></asp:ListItem>
+                                            <asp:ListItem Text="400" Value="400" Selected="True" Enabled="false"></asp:ListItem>
+                                        </asp:DropDownList>
+                                        <asp:Button ID="btnTriageLevel400" runat="server" Text="Update" OnClick="btnTriageLevel400_Click" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
                     </p>
