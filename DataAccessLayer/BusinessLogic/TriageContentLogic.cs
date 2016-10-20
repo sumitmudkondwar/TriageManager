@@ -91,7 +91,7 @@ namespace DataAccessLayer.BusinessLogic
         {
             DataTable dt = new DataTable();
             string Query = "select ROW_NUMBER() OVER(ORDER BY [Contents] DESC) AS Row,[Contents],[Contents],[Type],[ContentDescription] from (";
-            Query = Query + "select Blobpath [Contents],'Files'[Type],''[ContentDescription] from FileNameContent where ContentGUID in (select ContentGUID from MainContent where SmeTopicsId = @p_SmeTopicsId and ContentLevel = @p_ContentLevel)";
+            Query = Query + "select Blobpath [Contents],'Files'[Type],[ContentDescription][ContentDescription] from FileNameContent FC inner join MainContent MC on (FC.ContentGUID = MC.ContentGUID) where SmeTopicsId = @p_SmeTopicsId and ContentLevel = @p_ContentLevel ";
             Query = Query + " Union ";
             Query = Query + " select ContentURL [Contents], 'Urls'[Type],ContentDescription[ContentDescription] from MainContent where ContentURL != '' and SmeTopicsId = @p_SmeTopicsId and ContentLevel = @p_ContentLevel)a";
             //Query = Query + " ";

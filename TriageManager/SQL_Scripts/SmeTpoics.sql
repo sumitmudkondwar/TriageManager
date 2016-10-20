@@ -1,6 +1,6 @@
 create table SmeTopics
 (
-	SmeTpoicsId int identity(1,1) primary key clustered,
+	SmeTopicsId int identity(1,1) primary key clustered,
 	TopicName varchar(200)
 )
 
@@ -8,21 +8,27 @@ select * from SmeTpoics
 
 
 
-insert into SmeTpoics values('SSL / Custom domains')
-insert into SmeTpoics values('Website Availability & Performance')
-insert into SmeTpoics values('BYOD / App Service Certificate / Extensions / KUDU / Traffic Manager / Backups / Clone / Auto-Heal')
-insert into SmeTpoics values('VNET / Hybrid Connection')
-insert into SmeTpoics values('Deployment')
-insert into SmeTpoics values('VNET')
-insert into SmeTpoics values('ASE')
-insert into SmeTpoics values('Mobile Apps')
-insert into SmeTpoics values('Scaling / Auto-Scaling/ Slots / Alerts / App Settings')
-insert into SmeTpoics values('Linux Basics')
-insert into SmeTpoics values('Easy Auth and AAD related')
-insert into SmeTpoics values('Web Jobs (SDK) & Functions')
-insert into SmeTpoics values('Logic & API apps')
-insert into SmeTpoics values('Azure Powershell / API / SDK / ARM templates')
-insert into SmeTpoics values('Azure Functions')
+insert into SmeTopics values('SSL / Custom domains')
+insert into SmeTopics values('Website Availability & Performance')
+insert into SmeTopics values('BYOD / App Service Certificate')
+insert into SmeTopics values('Extensions / KUDU / Auto-Heal')
+insert into SmeTopics values('Traffic Manager')
+insert into SmeTopics values('Backups')
+insert into SmeTopics values('VNET / Hybrid Connection')
+insert into SmeTopics values('Deployment')
+insert into SmeTopics values('VNET')
+insert into SmeTopics values('ASE')
+insert into SmeTopics values('Mobile Apps')
+insert into SmeTopics values('Scaling / Auto-Scaling')
+insert into SmeTopics values('Slots / Swap')
+insert into SmeTopics values('Alerts')
+insert into SmeTopics values('Linux Basics')
+insert into SmeTopics values('Easy Auth and AAD related')
+insert into SmeTopics values('Web Jobs (SDK) & Functions')
+insert into SmeTopics values('Logic & API apps')
+insert into SmeTopics values('Azure Powershell / API / SDK / ARM templates')
+insert into SmeTopics values('Azure Functions')
+
 
 
 

@@ -69,7 +69,7 @@
                             <Columns>
                                 <asp:HyperLinkField HeaderText="Level 100 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
                                 <asp:BoundField HeaderText="Description" DataField="ContentDescription" />
-                                <asp:TemplateField HeaderText = "Update Content Level">
+                                <asp:TemplateField HeaderText = "Update Content Level" Visible="false">
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlTriageLevel100" runat="server">
                                             <asp:ListItem Text="100" Value="100" Selected="True" Enabled="false"></asp:ListItem>
@@ -90,7 +90,7 @@
                         <asp:GridView ID="grd200" Width="100%" CssClass="gridtable" AutoGenerateColumns="false" runat="server">
                             <Columns>
                                 <asp:HyperLinkField HeaderText="Level 200 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
-                                <asp:TemplateField HeaderText = "Update Content Level">
+                                <asp:TemplateField HeaderText = "Update Content Level" Visible="false">
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlTriageLevel200" runat="server">
                                             <asp:ListItem Text="100" Value="100"></asp:ListItem>
@@ -111,7 +111,7 @@
                         <asp:GridView ID="grd300" Width="100%" CssClass="gridtable" AutoGenerateColumns="false" runat="server">
                             <Columns>
                                 <asp:HyperLinkField HeaderText="Level 300 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
-                                <asp:TemplateField HeaderText = "Update Content Level">
+                                <asp:TemplateField HeaderText = "Update Content Level" Visible="false">
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlTriageLevel300" runat="server">
                                             <asp:ListItem Text="100" Value="100"></asp:ListItem>
@@ -132,7 +132,7 @@
                         <asp:GridView ID="grd400" Width="100%" CssClass="gridtable" AutoGenerateColumns="false" runat="server">
                             <Columns>
                                 <asp:HyperLinkField HeaderText="Level 400 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
-                                <asp:TemplateField HeaderText = "Update Content Level">
+                                <asp:TemplateField HeaderText = "Update Content Level" Visible="false">
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlTriageLevel400" runat="server">
                                             <asp:ListItem Text="100" Value="100"></asp:ListItem>

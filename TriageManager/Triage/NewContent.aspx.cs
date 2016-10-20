@@ -117,9 +117,13 @@ namespace TriageManager.Triage
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (txtDescription.Text.Trim().Equals(string.Empty) && flupNewFiles.HasFile == false)
+            if (txtURL.Text.Trim().Equals(string.Empty) && flupNewFiles.HasFile == false)
             {
                 lblErrorMessage.Text = "Either of Entering URL or File Upload is Mandatory!!!";
+            }
+            else if (txtDescription.Text.Trim().Equals(string.Empty))
+            {
+                lblErrorMessage.Text = "Description is Mandatory!!!";
             }
             else
             {
@@ -134,7 +138,7 @@ namespace TriageManager.Triage
                 triageContent.ContentLevel = Convert.ToInt32(ddlContentLevel.SelectedItem.Text);
                 triageContent.ContentDescription = txtDescription.Text;
                 triageContent.ContentURL = txtURL.Text;
-                triageContent.EmailId = "sumudk@microsoft.com";//HttpContext.Current.User.ToString();
+                triageContent.EmailId = HttpContext.Current.User.Identity.Name.ToString();
                 triageContent.FileNameList = FileNameList;
 
                 triageContentLogic.AddNewContent(triageContent);

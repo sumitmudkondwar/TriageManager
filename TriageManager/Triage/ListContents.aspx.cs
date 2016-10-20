@@ -121,7 +121,7 @@ namespace TriageManager.Triage
 
             string Designation = "";
             triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString(), out Designation);
-            Designation = "TA";
+            //Designation = "TA";
             
             if (Designation.Equals("TA") || Designation.Equals("Manager"))
             {
