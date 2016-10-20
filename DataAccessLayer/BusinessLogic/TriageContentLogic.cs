@@ -90,10 +90,10 @@ namespace DataAccessLayer.BusinessLogic
         public DataTable GetContentsFiles(string SmeTopicsId, string ContentLevel)
         {
             DataTable dt = new DataTable();
-            string Query = "select ROW_NUMBER() OVER(ORDER BY [Contents] DESC) AS Row,[Contents],[Contents],[Type] from (";
-            Query = Query + "select Blobpath [Contents],'Files'[Type] from FileNameContent where ContentGUID in (select ContentGUID from MainContent where SmeTopicsId = @p_SmeTopicsId and ContentLevel = @p_ContentLevel)";
+            string Query = "select ROW_NUMBER() OVER(ORDER BY [Contents] DESC) AS Row,[Contents],[Contents],[Type],[ContentDescription] from (";
+            Query = Query + "select Blobpath [Contents],'Files'[Type],''[ContentDescription] from FileNameContent where ContentGUID in (select ContentGUID from MainContent where SmeTopicsId = @p_SmeTopicsId and ContentLevel = @p_ContentLevel)";
             Query = Query + " Union ";
-            Query = Query + " select ContentDescription [Contents], 'Urls'[Type] from MainContent where ContentDescription != '' and SmeTopicsId = @p_SmeTopicsId and ContentLevel = @p_ContentLevel)a";
+            Query = Query + " select ContentURL [Contents], 'Urls'[Type],ContentDescription[ContentDescription] from MainContent where ContentURL != '' and SmeTopicsId = @p_SmeTopicsId and ContentLevel = @p_ContentLevel)a";
             //Query = Query + " ";
 
             SqlParameter[] sqlParameter = new SqlParameter[]

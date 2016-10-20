@@ -28,6 +28,8 @@ namespace TriageManager.Triage
                 ddlHeading.DataValueField = "SmeTopicsId";
                 ddlHeading.DataSource = triageContentLogic.GetSMETopics();
                 ddlHeading.DataBind();
+
+                ddlHeading_SelectedIndexChanged(sender, e);
             }
 
         }
@@ -41,6 +43,7 @@ namespace TriageManager.Triage
             newDT.Columns.Add("Row");
             newDT.Columns.Add("FileList");
             newDT.Columns.Add("FilePath");
+            newDT.Columns.Add("ContentDescription");
 
             //============================================================================================
 
@@ -49,9 +52,9 @@ namespace TriageManager.Triage
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr[3].ToString().Equals("Files"))
-                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), _BlobURL + dr[1].ToString());
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), _BlobURL + dr[1].ToString(), dr[4].ToString());
                 else
-                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString());
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString(), dr[4].ToString());
             }
 
             grd100.DataSource = newDT;
@@ -67,9 +70,9 @@ namespace TriageManager.Triage
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr[3].ToString().Equals("Files"))
-                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), _BlobURL + dr[1].ToString());
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), _BlobURL + dr[1].ToString(), dr[4].ToString());
                 else
-                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString());
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString(), dr[4].ToString());
             }
 
             grd200.DataSource = newDT;
@@ -85,9 +88,9 @@ namespace TriageManager.Triage
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr[3].ToString().Equals("Files"))
-                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), _BlobURL + dr[1].ToString());
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), _BlobURL + dr[1].ToString(), dr[4].ToString());
                 else
-                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString());
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString(), dr[4].ToString());
             }
 
             grd300.DataSource = newDT;
@@ -103,9 +106,9 @@ namespace TriageManager.Triage
             foreach (DataRow dr in dt.Rows)
             {
                 if (dr[3].ToString().Equals("Files"))
-                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), _BlobURL + dr[1].ToString());
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString().Split('_')[1].ToString(), _BlobURL + dr[1].ToString(), dr[4].ToString());
                 else
-                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString());
+                    newDT.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[1].ToString(), dr[4].ToString());
             }
 
             grd400.DataSource = newDT;

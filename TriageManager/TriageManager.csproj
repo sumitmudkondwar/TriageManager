@@ -217,6 +217,8 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Images\200w.gif" />
     <Content Include="Images\7.jpg" />
+    <Content Include="Images\download-icon.png" />
+    <Content Include="Images\download.png" />
     <Content Include="Images\hqdefault.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

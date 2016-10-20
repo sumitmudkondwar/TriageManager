@@ -68,6 +68,7 @@
                         <asp:GridView ID="grd100" Width="100%" CssClass="gridtable" AutoGenerateColumns="false" runat="server">
                             <Columns>
                                 <asp:HyperLinkField HeaderText="Level 100 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
+                                <asp:BoundField HeaderText="Description" DataField="ContentDescription" />
                                 <asp:TemplateField HeaderText = "Update Content Level">
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlTriageLevel100" runat="server">
