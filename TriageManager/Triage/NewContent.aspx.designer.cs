@@ -49,6 +49,15 @@ namespace TriageManager.Triage {
         protected global::System.Web.UI.WebControls.DropDownList ddlContentLevel;
         
         /// <summary>
+        /// txtURL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtURL;
+        
+        /// <summary>
         /// txtDescription control.
         /// </summary>
         /// <remarks>

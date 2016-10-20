@@ -4,11 +4,36 @@
     <h2><%: Title %></h2>
     <hr />
     <style>
-      #accordion-resizer {
-        padding: 10px;
-        width: 60%;
-        height: 350px;
-      }
+        #accordion-resizer {
+            padding: 10px;
+            width: 85%;
+            height: 500px;
+        }
+
+        table.gridtable {
+            font-family: verdana,arial,sans-serif;
+            font-size: 11px;
+            color: #333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+        }
+
+            table.gridtable th {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #dedede;
+            }
+            table.gridtable td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #ffffff;
+            }
+
     </style>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
@@ -32,7 +57,7 @@
         <div>
             Select Topic:
             <p>
-                <asp:DropDownList ID="ddlHeading" runat="server" CssClass="form-control" Width="60%" OnSelectedIndexChanged="ddlHeading_SelectedIndexChanged" AutoPostBack="true" ToolTip="Select the subject for which you want to learn."></asp:DropDownList>
+                <asp:DropDownList ID="ddlHeading" runat="server" CssClass="form-control" Width="30%" OnSelectedIndexChanged="ddlHeading_SelectedIndexChanged" AutoPostBack="true" ToolTip="Select the subject for which you want to learn."></asp:DropDownList>
             </p>
         </div>
         <div id="accordion-resizer" class="ui-widget-content">
@@ -40,7 +65,7 @@
                 <h3>Level 100</h3>
                 <div>
                     <p>
-                        <asp:GridView ID="grd100" Width="100%" AutoGenerateColumns="false" runat="server">
+                        <asp:GridView ID="grd100" Width="100%" CssClass="gridtable" AutoGenerateColumns="false" runat="server">
                             <Columns>
                                 <asp:HyperLinkField HeaderText="Level 100 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
                                 <asp:TemplateField HeaderText = "Update Content Level">
@@ -61,7 +86,7 @@
                 <h3>Level 200</h3>
                 <div>
                     <p>
-                        <asp:GridView ID="grd200" Width="100%" AutoGenerateColumns="false" runat="server">
+                        <asp:GridView ID="grd200" Width="100%" CssClass="gridtable" AutoGenerateColumns="false" runat="server">
                             <Columns>
                                 <asp:HyperLinkField HeaderText="Level 200 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
                                 <asp:TemplateField HeaderText = "Update Content Level">
@@ -82,7 +107,7 @@
                 <h3>Level 300</h3>
                 <div>
                     <p>
-                        <asp:GridView ID="grd300" Width="100%" AutoGenerateColumns="false" runat="server">
+                        <asp:GridView ID="grd300" Width="100%" CssClass="gridtable" AutoGenerateColumns="false" runat="server">
                             <Columns>
                                 <asp:HyperLinkField HeaderText="Level 300 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
                                 <asp:TemplateField HeaderText = "Update Content Level">
@@ -103,7 +128,7 @@
                 <h3>Level 400</h3>
                 <div>
                     <p>
-                        <asp:GridView ID="grd400" Width="100%" AutoGenerateColumns="false" runat="server">
+                        <asp:GridView ID="grd400" Width="100%" CssClass="gridtable" AutoGenerateColumns="false" runat="server">
                             <Columns>
                                 <asp:HyperLinkField HeaderText="Level 400 Contents" DataTextField="FileList" ControlStyle-ForeColor="Blue" DataNavigateUrlFormatString="{0}" Target="_blank" DataNavigateUrlFields="FilePath" />
                                 <asp:TemplateField HeaderText = "Update Content Level">

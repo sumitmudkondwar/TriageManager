@@ -5,7 +5,8 @@ create table MainContent
 	ContentLevel  int,
 	ContentDescription varchar(Max),
 	ContentGUID varchar(100),
-	EmailId varchar(100)
+	EmailId varchar(100),
+	ContentURL varchar(500)
 )
 
 go

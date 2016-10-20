@@ -28,6 +28,8 @@ namespace DataAccessLayer.Models
 
         private int _ContentLevel;
 
+        private string _ContentURL;
+
         public int MainContentId
         {
             get
@@ -155,6 +157,19 @@ namespace DataAccessLayer.Models
             set
             {
                 _ContentLevel = value;
+            }
+        }
+
+        public string ContentURL
+        {
+            get
+            {
+                return _ContentURL;
+            }
+
+            set
+            {
+                _ContentURL = value;
             }
         }
     }

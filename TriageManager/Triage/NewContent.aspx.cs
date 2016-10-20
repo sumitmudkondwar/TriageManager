@@ -112,6 +112,7 @@ namespace TriageManager.Triage
             flupNewFiles.Attributes.Clear();
             lblErrorMessage.Text = string.Empty;
             lblSuccessMessage.Text = string.Empty;
+            txtURL.Text = string.Empty;
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -132,12 +133,14 @@ namespace TriageManager.Triage
                 triageContent.SmeTopicsId = Convert.ToInt32(ddlHeading.SelectedItem.Value);
                 triageContent.ContentLevel = Convert.ToInt32(ddlContentLevel.SelectedItem.Text);
                 triageContent.ContentDescription = txtDescription.Text;
+                triageContent.ContentURL = txtURL.Text;
                 triageContent.EmailId = "sumudk@microsoft.com";//HttpContext.Current.User.ToString();
                 triageContent.FileNameList = FileNameList;
 
                 triageContentLogic.AddNewContent(triageContent);
 
                 txtDescription.Text = string.Empty;
+                txtURL.Text = string.Empty;
 
                 lblSuccessMessage.Text = "Content Successfully Added to KB.";
             }

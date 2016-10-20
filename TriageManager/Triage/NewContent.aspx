@@ -27,14 +27,20 @@
             </p>
         </div>
         <div>
-            URL(links to blogs) you want to share with everyone:
+            URL(links to blogs) you want to share with everyone (Suggestion:Please enter single url):
             <p>
-                <asp:TextBox ID="txtDescription" CssClass="form-control" TextMode="MultiLine" ToolTip="You can add some url here you want to share with everyone." Width="60%" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtURL" CssClass="form-control" TextMode="MultiLine" ToolTip="You can add some url here you want to share with everyone." Width="60%" runat="server"></asp:TextBox>
+            </p>
+        </div>
+        <div>
+            Description:
+            <p>
+                <asp:TextBox ID="txtDescription" CssClass="form-control" Height="150px" TextMode="MultiLine" ToolTip="Add some description for your content." Width="60%" runat="server"></asp:TextBox>
             </p>
         </div>
         <div>
             <p>
-                <asp:FileUpload ID="flupNewFiles" AllowMultiple="true" runat="server" ToolTip="You can upload multiple files here to share with everyone in the team." />
+                <asp:FileUpload ID="flupNewFiles" AllowMultiple="false" runat="server" ToolTip="You can upload multiple files here to share with everyone in the team." />
             </p>
         </div>
         <div>

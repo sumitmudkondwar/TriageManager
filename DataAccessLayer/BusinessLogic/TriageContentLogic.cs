@@ -23,6 +23,7 @@ namespace DataAccessLayer.BusinessLogic
                     new SqlParameter("@p_ContentDescription", triageContent.ContentDescription),
                     new SqlParameter("@p_EmailId", triageContent.EmailId),
                     new SqlParameter("@p_FileNameList", triageContent.FileNameList),
+                    new SqlParameter("@p_ContentURL", triageContent.ContentURL),
                 };
 
                 retval = DataAccess.DataAccess.executeInsertQuery("pr_addNewContent", sqlParameter);
