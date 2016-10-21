@@ -31,8 +31,8 @@ namespace TriageManager.Triage
             TriagePollLogic triagePollLogic = new TriagePollLogic();
             string Designation = string.Empty;
 
-            dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString(), out Designation);
-            //dt = triagePollLogic.GetReportNameList("sumudk@microsoft.com", out Designation);
+            //dt = triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString(), out Designation);
+            dt = triagePollLogic.GetReportNameList("sumudk@microsoft.com", out Designation);
 
             Session["Designation"] = Designation;
 

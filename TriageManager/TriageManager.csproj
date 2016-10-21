@@ -282,6 +282,7 @@
     <Content Include="Triage\MyProfile.aspx" />
     <Content Include="Triage\NewContent.aspx" />
     <Content Include="Triage\Reports.aspx" />
+    <Content Include="Triage\ReportsNew.aspx" />
     <Content Include="Triage\TriageCalender.aspx" />
     <Content Include="Triage\YourTriages.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -411,6 +412,13 @@
     </Compile>
     <Compile Include="Triage\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Triage\ReportsNew.aspx.cs">
+      <DependentUpon>ReportsNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Triage\ReportsNew.aspx.designer.cs">
+      <DependentUpon>ReportsNew.aspx</DependentUpon>
     </Compile>
     <Compile Include="Triage\TriageCalender.aspx.cs">
       <DependentUpon>TriageCalender.aspx</DependentUpon>
