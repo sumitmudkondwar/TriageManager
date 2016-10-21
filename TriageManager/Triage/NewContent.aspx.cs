@@ -154,7 +154,7 @@ namespace TriageManager.Triage
         {
             string FileNameList = "";
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference("documents");
+            CloudBlobContainer container = blobClient.GetContainerReference("mycontainer");
             container.CreateIfNotExists();
             container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
 
