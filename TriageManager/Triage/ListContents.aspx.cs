@@ -117,26 +117,26 @@ namespace TriageManager.Triage
             //=============================================================================================
 
             //Here we will show column of update triage level for TA's
-            TriagePollLogic triagePollLogic = new TriagePollLogic();
+            //TriagePollLogic triagePollLogic = new TriagePollLogic();
 
-            string Designation = "";
-            triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString(), out Designation);
-            //Designation = "TA";
+            //string Designation = "";
+            //triagePollLogic.GetReportNameList(HttpContext.Current.User.Identity.Name.ToString(), out Designation);
+            ////Designation = "TA";
             
-            if (Designation.Equals("TA") || Designation.Equals("Manager"))
-            {
-                grd100.Columns[1].Visible = true;
-                grd200.Columns[1].Visible = true;
-                grd300.Columns[1].Visible = true;
-                grd400.Columns[1].Visible = true;
-            }
-            else
-            {
-                grd100.Columns[1].Visible = false;
-                grd200.Columns[1].Visible = false;
-                grd300.Columns[1].Visible = false;
-                grd400.Columns[1].Visible = false;
-            }
+            //if (Designation.Equals("TA") || Designation.Equals("Manager"))
+            //{
+            //    grd100.Columns[1].Visible = true;
+            //    grd200.Columns[1].Visible = true;
+            //    grd300.Columns[1].Visible = true;
+            //    grd400.Columns[1].Visible = true;
+            //}
+            //else
+            //{
+            //    grd100.Columns[1].Visible = false;
+            //    grd200.Columns[1].Visible = false;
+            //    grd300.Columns[1].Visible = false;
+            //    grd400.Columns[1].Visible = false;
+            //}
             
         }
 
