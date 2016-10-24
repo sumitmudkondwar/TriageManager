@@ -2,37 +2,44 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Feedback</h2>
-    <style>
-        #accordion-resizer {
-            padding: 10px;
-            width: 85%;
-            height: 500px;
-        }
-    </style>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
         $(function () {
-            $("#accordion").accordion({
-                heightStyle: "fill"
-            });
-
-            $("#accordion-resizer").resizable({
-                minHeight: 140,
-                minWidth: 200,
-                resize: function () {
-                    $("#accordion").accordion("refresh");
-                }
-            });
+            $("#dvAccordian").accordion();
         });
+
+        $(function () {
+            $("dvDateAccordian").accordion();
+        })
+
     </script>
     <hr />
-    <asp:PlaceHolder runat="server">
-        <div id="accordion-resizer" class="ui-widget-content">
-            <div id="accordion">
-                
-            </div>
-        </div>
-    </asp:PlaceHolder>
+    <div id="dvAccordian" style="width:90%">
+        <asp:Repeater ID="rptAccordian" runat="server" OnItemDataBound="rptAccordian_ItemDataBound">
+            <ItemTemplate>
+                <h3>
+                    <%# Eval("Name") %></h3>
+                <div>
+                    <p style="height:500px">
+                        <div id="dvDateAccordian" style="width:90%">
+                            <asp:Repeater ID="rptDateAccordian" runat="server">
+                                <ItemTemplate>
+                                    <h3>
+                                        <%# Eval("TriageDate") %>
+                                    </h3>
+                                    <div>
+                                        <p>
+                                            Sumit
+                                        </p>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
+                    </p>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
 </asp:Content>

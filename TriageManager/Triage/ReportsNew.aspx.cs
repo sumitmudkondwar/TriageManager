@@ -18,33 +18,57 @@ namespace TriageManager.Triage
             TriagePollLogic triagePollLogic = new TriagePollLogic();
             string Designation = "";
             dt = triagePollLogic.GetReportNameList("sumudk@microsoft.com", out Designation);
-            string html = "";
+
+            rptAccordian.DataSource = dt;
+            rptAccordian.DataBind();
 
 
-            foreach (DataRow dr in dt.Rows)
-            {
-                html = html + "<h3>" + dr[0].ToString() + "</h3><div><p></p></div>";
-            }
+            
+            //string html = "";
+            //foreach (DataRow dr in dt.Rows)
+            //{
+            //    html = html + "<h3>" + dr[0].ToString() + "</h3><div><p></p></div>";
+            //}
 
             //HtmlGenericControl div = new HtmlGenericControl("accordion");
             //div.InnerHtml = html;
 
-            ContentPlaceHolder cph;
-            Literal lit;
+            //ContentPlaceHolder cph;
+            //Literal lit;
 
-            cph = (ContentPlaceHolder)Master.FindControl("MainContent");
+            //cph = (ContentPlaceHolder)Master.FindControl("MainContent");
 
-            if (cph != null)
-            {
-                lit = (Literal)cph.FindControl("accordion");
-                if (lit != null)
-                {
-                    lit.Text = "Some <b>HTML</b>";
-                }
-            }
+            //if (cph != null)
+            //{
+            //    lit = (Literal)cph.FindControl("accordion");
+            //    if (lit != null)
+            //    {
+            //        lit.Text = "Some <b>HTML</b>";
+            //    }
+            //}
 
 
             //accordion.InnerHtml = html;
+        }
+
+        protected void rptAccordian_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            //DataTable dt = new DataTable();
+            //TriagePollLogic triagePollLogic = new TriagePollLogic();
+
+            //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            //{
+            //    dynamic person = e.Item.DataItem as dynamic;
+
+            //    string name = person.Row.ItemArray[1];
+            //    dt = triagePollLogic.GetTriageDateList(name);
+
+            //    Repeater ctrlDateRepeater = new Repeater();
+            //    ctrlDateRepeater = e.Item.FindControl("rptDateAccordian") as Repeater;
+            //    ctrlDateRepeater.DataSource = dt;
+            //    ctrlDateRepeater.DataBind();
+            //}
+
         }
     }
 }
