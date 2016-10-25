@@ -132,7 +132,8 @@ namespace TriageManager.TDP
             }
 
             dt1.Columns.Remove("Engineer");
-
+            
+            dt1.DefaultView.Sort = "Name asc";
             grdEngineer.DataSource = dt1;
             grdEngineer.DataBind();
         }
