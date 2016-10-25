@@ -1,10 +1,12 @@
 create table MainContent
 (
 	MainContentId int identity(1,1) primary key clustered,
-	ContentHeading varchar(200),
+	SmeTopicsId int,
+	ContentLevel  int,
 	ContentDescription varchar(Max),
 	ContentGUID varchar(100),
-	EmailId varchar(100)
+	EmailId varchar(100),
+	ContentURL varchar(500)
 )
 
 go

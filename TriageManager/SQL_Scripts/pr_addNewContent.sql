@@ -1,9 +1,11 @@
 alter proc pr_addNewContent
 (
-	@p_ContentHeading varchar(200),
+	@p_SmeTopicsId int,
+	@p_ContentLevel int,
 	@p_ContentDescription varchar(Max),
 	@p_EmailId varchar(100),
-	@p_FileNameList varchar(Max)
+	@p_FileNameList varchar(Max),
+	@p_ContentURL varchar(500)
 )
 as 
 begin
@@ -11,7 +13,7 @@ begin
 	declare @GUID varchar(100) = newid();
 	declare @FileName varchar(100)
 
-	insert into MainContent values(@p_ContentHeading,@p_ContentDescription,@GUID,@p_EmailId)
+	insert into MainContent values(@p_SmeTopicsId,@p_ContentLevel,@p_ContentDescription,@GUID,@p_EmailId,@p_ContentURL)
 
 	declare C1 cursor for (SELECT value FROM STRING_SPLIT(@p_FileNameList, '|') WHERE RTRIM(value) <> '')
 	
@@ -34,8 +36,9 @@ go
 
 
 exec pr_addNewContent
-@p_ContentHeading = 'asdf',
+@p_SmeTopicsId = 1,
+@p_ContentLevel = 100,
 @p_ContentDescription = 'asffg',
-@p_EmailId = 'sumit',
-@p_FileNameList = 'Sumit|rinky|arjun'
-
+@p_EmailId = 'sumit@micro.com',
+@p_FileNameList = 'a|b|c',
+@p_ContentURL = 'https://www.google.com'

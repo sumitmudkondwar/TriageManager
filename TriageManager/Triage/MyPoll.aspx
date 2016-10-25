@@ -77,12 +77,17 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>What could have been better? </td>
+                                <td style="color:red; width:150px">Please suggest some useful suggestions for your colleague</td>
                                 <td style="width: 30px">:</td>
                                 <td colspan="4">
                                     <asp:TextBox Height="120px" CssClass="form-control" ID="txtComments" runat="server" Width="100%" TextMode="MultiLine"></asp:TextBox>
                                 </td>
                             </tr>
+                            <%--<tr>
+                                <td colspan="6" style="color:red">
+                                    Hello Team, please do not ignore the textbox for suggestions to your colleague this is anonymous suggestion you can give your colleague to inprove in future.
+                                </td>
+                            </tr>--%>
                         </table>
                     </div>
                     <div id="dvAttendedNo" runat="server" class="form-group">
