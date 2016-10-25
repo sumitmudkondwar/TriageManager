@@ -113,7 +113,7 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="Label6" runat="server" Text="WebApps on Linux"></asp:Label>
+                    <asp:Label ID="Label6" runat="server" Text="Azure App Service on Linux"></asp:Label>
                 </td>
                 <td>
                 </td>

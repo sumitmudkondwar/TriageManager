@@ -17,6 +17,9 @@ namespace TriageManager.TDP
             DataSet ds = null;
             DataSet ds1 = null;
             DataSet ds2 = null;
+            DataSet ds3 = null;
+            DataSet ds4 = null;
+            DataSet ds5 = null;
             SqlDataAdapter sqldda = null;
 
             System.Data.SqlClient.SqlConnection sqlConnection =
@@ -27,7 +30,46 @@ namespace TriageManager.TDP
             cmd.Connection = sqlConnection;
             sqlConnection.Open();
 
-            cmd.CommandText = "SELECT emailID, firstName name from Users";
+
+            cmd.CommandText = "SELECT designation from Users where emailID = '" +
+                HttpContext.Current.User.Identity.Name.ToString() + "'";
+            ds3 = new DataSet();
+            sqldda = new SqlDataAdapter(cmd);
+            sqldda.Fill(ds3);
+
+            if (ds3.Tables[0].Rows.Count == 0 || ds3.Tables[0].Rows[0][0].ToString() == "Support Engineer")
+            {
+                sqlConnection.Close();
+                pnlReport.Visible = false;
+                lblComment.Text = "Only TA/Manager can assess Reports of the engineers";
+                return;
+            }
+
+            pnlReport.Visible = true;
+
+
+            cmd.CommandText = "SELECT [Engineer],[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+                "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
+                "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
+                ",[EngineerAssessmentDate] FROM[dbo].[Assessment] where [EngineerAssessment] = 'Yes'";
+            ds4 = new DataSet();
+            sqldda = new SqlDataAdapter(cmd);
+            sqldda.Fill(ds4);
+
+            grdEngAssess.DataSource = ds4;
+            grdEngAssess.DataBind();
+            cmd.CommandText = "SELECT [Engineer],[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+                "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
+                "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
+                ",[TAAssessmentBy],[TAAssessmentDate] FROM[dbo].[Assessment] where [TAAssessment] = 'Yes'";
+            ds5 = new DataSet();
+            sqldda = new SqlDataAdapter(cmd);
+            sqldda.Fill(ds5);
+
+            grdTAAssess.DataSource = ds5;
+            grdTAAssess.DataBind();
+
+            cmd.CommandText = "SELECT emailID, firstName name from Users where [Designation] = 'Support Engineer'";
             ds = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds);
