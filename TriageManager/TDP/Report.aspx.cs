@@ -88,7 +88,7 @@ namespace TriageManager.TDP
 
             DataTable dt = new DataTable();
             dt.Columns.Add("Engineer");
-            dt.Columns.Add("Name ");
+            dt.Columns.Add("Name");
 
             foreach (DataRow row in ds1.Tables[0].Rows)
             {
