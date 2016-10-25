@@ -9,34 +9,22 @@
         $(function () {
             $("#dvAccordian").accordion();
         });
-
-        $(function () {
-            $("dvDateAccordian").accordion();
-        })
-
     </script>
     <hr />
     <div id="dvAccordian" style="width:90%">
-        <asp:Repeater ID="rptAccordian" runat="server" OnItemDataBound="rptAccordian_ItemDataBound">
+        <asp:Repeater ID="rptAccordian" runat="server">
             <ItemTemplate>
                 <h3>
-                    <%# Eval("Name") %></h3>
+                    <%# Eval("Topic") %></h3>
                 <div>
                     <p style="height:500px">
-                        <div id="dvDateAccordian" style="width:90%">
-                            <asp:Repeater ID="rptDateAccordian" runat="server">
-                                <ItemTemplate>
-                                    <h3>
-                                        <%# Eval("TriageDate") %>
-                                    </h3>
-                                    <div>
-                                        <p>
-                                            Sumit
-                                        </p>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </div>
+                        <ItemTemplate>   
+                            <asp:GridView ID="grdPollData" runat="server">
+                                <%--<Columns>  
+                                    <asp:BoundField DataField="Link" HeaderText="Link" />
+                                </Columns>--%>
+                            </asp:GridView>
+                        </ItemTemplate>
                     </p>
                 </div>
             </ItemTemplate>

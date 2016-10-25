@@ -16,8 +16,7 @@ namespace TriageManager.Triage
         {
             DataTable dt = new DataTable();
             TriagePollLogic triagePollLogic = new TriagePollLogic();
-            string Designation = "";
-            dt = triagePollLogic.GetReportNameList("sumudk@microsoft.com", out Designation);
+            dt = triagePollLogic.GetTriageCalender();
 
             rptAccordian.DataSource = dt;
             rptAccordian.DataBind();
@@ -51,8 +50,8 @@ namespace TriageManager.Triage
             //accordion.InnerHtml = html;
         }
 
-        protected void rptAccordian_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
+        //protected void rptAccordian_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        //{
             //DataTable dt = new DataTable();
             //TriagePollLogic triagePollLogic = new TriagePollLogic();
 
@@ -69,6 +68,6 @@ namespace TriageManager.Triage
             //    ctrlDateRepeater.DataBind();
             //}
 
-        }
+        //}
     }
 }

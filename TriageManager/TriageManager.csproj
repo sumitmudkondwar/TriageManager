@@ -270,6 +270,12 @@
     <Content Include="SQL_Scripts\pr_InsertPoll.sql" />
     <Content Include="SQL_Scripts\SmeTpoics.sql" />
     <Content Include="SQL_Scripts\TriageCalender.sql" />
+    <Content Include="TDP\Assess.aspx" />
+    <Content Include="TDP\Assign.aspx" />
+    <Content Include="TDP\Report.aspx" />
+    <Content Include="TDP\Self.aspx" />
+    <Content Include="TDP\Status.aspx" />
+    <Content Include="TDP\TDPTasks.aspx" />
     <Content Include="test.html" />
     <Content Include="Triage\ContentDetails.aspx" />
     <Content Include="Triage\Contents.aspx" />
@@ -297,6 +303,7 @@
     <Content Include="Site.Mobile.Master" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="TDP\NestedMasterPage1.master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -343,6 +350,55 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="TDP\Assess.aspx.cs">
+      <DependentUpon>Assess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TDP\Assess.aspx.designer.cs">
+      <DependentUpon>Assess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TDP\Assign.aspx.cs">
+      <DependentUpon>Assign.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TDP\Assign.aspx.designer.cs">
+      <DependentUpon>Assign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TDP\NestedMasterPage1.master.cs">
+      <DependentUpon>NestedMasterPage1.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TDP\NestedMasterPage1.master.designer.cs">
+      <DependentUpon>NestedMasterPage1.master</DependentUpon>
+    </Compile>
+    <Compile Include="TDP\Report.aspx.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TDP\Report.aspx.designer.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TDP\Self.aspx.cs">
+      <DependentUpon>Self.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TDP\Self.aspx.designer.cs">
+      <DependentUpon>Self.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TDP\Status.aspx.cs">
+      <DependentUpon>Status.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TDP\Status.aspx.designer.cs">
+      <DependentUpon>Status.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TDP\TDPTasks.aspx.cs">
+      <DependentUpon>TDPTasks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TDP\TDPTasks.aspx.designer.cs">
+      <DependentUpon>TDPTasks.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Triage\ContentDetails.aspx.cs">
       <DependentUpon>ContentDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
