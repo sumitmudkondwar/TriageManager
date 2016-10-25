@@ -51,7 +51,7 @@ namespace TriageManager.TDP
                 cmd.Connection = sqlConnection;
                 sqlConnection.Open();
 
-                cmd.CommandText = "SELECT CONCAT(firstName, ' ', lastname) name, emailID from Users where designation = 'Support Engineer'";
+                cmd.CommandText = "SELECT CONCAT(firstName, ' ', lastname) name, emailID from Users where designation = 'Support Engineer' order by name";
                 ds = new DataSet();
                 sqldda = new SqlDataAdapter(cmd);
                 sqldda.Fill(ds);

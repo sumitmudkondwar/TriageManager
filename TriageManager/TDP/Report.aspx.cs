@@ -51,7 +51,7 @@ namespace TriageManager.TDP
             cmd.CommandText = "SELECT [Engineer],[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
-                ",[EngineerAssessmentDate] FROM[dbo].[Assessment] where [EngineerAssessment] = 'Yes'";
+                ",[EngineerAssessmentDate] FROM[dbo].[Assessment] where [EngineerAssessment] = 'Yes' order by [Engineer]";
             ds4 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds4);
@@ -61,7 +61,7 @@ namespace TriageManager.TDP
             cmd.CommandText = "SELECT [Engineer],[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
-                ",[TAAssessmentBy],[TAAssessmentDate] FROM[dbo].[Assessment] where [TAAssessment] = 'Yes'";
+                ",[TAAssessmentBy],[TAAssessmentDate] FROM[dbo].[Assessment] where [TAAssessment] = 'Yes' order by [Engineer]";
             ds5 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds5);
@@ -103,6 +103,7 @@ namespace TriageManager.TDP
                 dt.Rows[count - 1][1] = row[1].ToString();
             }
 
+            dt.DefaultView.Sort = "Name asc";
             DataTable dt1 = dt.Copy();
 
             foreach (DataRow row in ds2.Tables[0].Rows)

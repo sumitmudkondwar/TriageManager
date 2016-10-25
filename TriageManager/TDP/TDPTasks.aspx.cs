@@ -94,7 +94,7 @@ namespace TriageManager.TDP
             cmd.Connection = sqlConnection;
             sqlConnection.Open();
 
-            cmd.CommandText = "SELECT Topic, Task from Tasks";
+            cmd.CommandText = "SELECT Topic, Task from Tasks order by Topic";
             ds = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds);
