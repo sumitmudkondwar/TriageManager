@@ -243,3 +243,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/TriageManager/Properties/PublishProfiles/TAtasks - Web Deploy.pubxml
+/TriageManager/Triage
