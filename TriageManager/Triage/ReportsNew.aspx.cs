@@ -50,23 +50,38 @@ namespace TriageManager.Triage
             //accordion.InnerHtml = html;
         }
 
+        protected void rptAccordian_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            dynamic rowData = e.Item.DataItem;
+            string TriageDate = rowData.Row.ItemArray[0].ToString();
+            TriagePollLogic triagePollLogic = new TriagePollLogic();
+            DataTable dt = new DataTable();
+            dt = triagePollLogic.GetReportData(TriageDate, "1", "Manager");
+
+            GridView grdAcc = new GridView();
+            grdAcc = e.Item.FindControl("grdPollData") as GridView;
+
+            grdAcc.DataSource = dt;
+            grdAcc.DataBind();
+        }
+
         //protected void rptAccordian_ItemDataBound(object sender, RepeaterItemEventArgs e)
         //{
-            //DataTable dt = new DataTable();
-            //TriagePollLogic triagePollLogic = new TriagePollLogic();
+        //DataTable dt = new DataTable();
+        //TriagePollLogic triagePollLogic = new TriagePollLogic();
 
-            //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            //{
-            //    dynamic person = e.Item.DataItem as dynamic;
+        //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        //{
+        //    dynamic person = e.Item.DataItem as dynamic;
 
-            //    string name = person.Row.ItemArray[1];
-            //    dt = triagePollLogic.GetTriageDateList(name);
+        //    string name = person.Row.ItemArray[1];
+        //    dt = triagePollLogic.GetTriageDateList(name);
 
-            //    Repeater ctrlDateRepeater = new Repeater();
-            //    ctrlDateRepeater = e.Item.FindControl("rptDateAccordian") as Repeater;
-            //    ctrlDateRepeater.DataSource = dt;
-            //    ctrlDateRepeater.DataBind();
-            //}
+        //    Repeater ctrlDateRepeater = new Repeater();
+        //    ctrlDateRepeater = e.Item.FindControl("rptDateAccordian") as Repeater;
+        //    ctrlDateRepeater.DataSource = dt;
+        //    ctrlDateRepeater.DataBind();
+        //}
 
         //}
     }
