@@ -28,7 +28,6 @@ namespace TriageManager.TDP
                 sqlConnection.Open();
 
                 string email = HttpContext.Current.User.Identity.Name.ToString();
-                email = "hkrish@microsoft.com";
 
                 cmd.CommandText = "SELECT designation from Users where emailID = '" +
                     email.ToString() + "'";
