@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace TriageManager.TDP
                 SqlDataAdapter sqldda = null;
 
                 System.Data.SqlClient.SqlConnection sqlConnection =
-                    new System.Data.SqlClient.SqlConnection("server=triageserver.database.windows.net;database=TriageDB;uid=triage;password=sme@12345;");
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
 
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
                 cmd.CommandType = System.Data.CommandType.Text;
@@ -50,7 +51,7 @@ namespace TriageManager.TDP
                 cmd.Connection = sqlConnection;
                 sqlConnection.Open();
 
-                cmd.CommandText = "SELECT CONCAT(firstName, ' ', lastname) name, emailID from Users where designation = 'Support Engineer'";
+                cmd.CommandText = "SELECT CONCAT(firstName, ' ', lastname) name, emailID from Users where designation = 'Support Engineer' order by name";
                 ds = new DataSet();
                 sqldda = new SqlDataAdapter(cmd);
                 sqldda.Fill(ds);
@@ -98,7 +99,7 @@ namespace TriageManager.TDP
             string email = HttpContext.Current.User.Identity.Name.ToString();
             
             System.Data.SqlClient.SqlConnection sqlConnection =
-                new System.Data.SqlClient.SqlConnection("server=triageserver.database.windows.net;database=TriageDB;uid=triage;password=sme@12345;");
+                new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
 
             System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
@@ -140,7 +141,7 @@ namespace TriageManager.TDP
             SqlDataAdapter sqldda = null;
 
             System.Data.SqlClient.SqlConnection sqlConnection =
-                new System.Data.SqlClient.SqlConnection("server=triageserver.database.windows.net;database=TriageDB;uid=triage;password=sme@12345;");
+                new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
 
             System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;

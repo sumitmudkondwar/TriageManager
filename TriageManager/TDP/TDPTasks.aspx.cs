@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace TriageManager.TDP
                 SqlDataAdapter sqldda = null;
 
                 System.Data.SqlClient.SqlConnection sqlConnection =
-                    new System.Data.SqlClient.SqlConnection("server=triageserver.database.windows.net;database=TriageDB;uid=triage;password=sme@12345;");
+                    new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
 
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
                 cmd.CommandType = System.Data.CommandType.Text;
@@ -54,7 +55,7 @@ namespace TriageManager.TDP
             string email = HttpContext.Current.User.Identity.Name.ToString();
             
             System.Data.SqlClient.SqlConnection sqlConnection =
-                new System.Data.SqlClient.SqlConnection("server=triageserver.database.windows.net;database=TriageDB;uid=triage;password=sme@12345;");
+                new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
 
             System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
@@ -86,14 +87,14 @@ namespace TriageManager.TDP
             SqlDataAdapter sqldda = null;
 
             System.Data.SqlClient.SqlConnection sqlConnection =
-                new System.Data.SqlClient.SqlConnection("server=triageserver.database.windows.net;database=TriageDB;uid=triage;password=sme@12345;");
+                new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
 
             System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Connection = sqlConnection;
             sqlConnection.Open();
 
-            cmd.CommandText = "SELECT Topic, Task from Tasks";
+            cmd.CommandText = "SELECT Topic, Task from Tasks order by Topic";
             ds = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds);

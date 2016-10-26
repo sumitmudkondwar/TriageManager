@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,17 +17,59 @@ namespace TriageManager.TDP
             DataSet ds = null;
             DataSet ds1 = null;
             DataSet ds2 = null;
+            DataSet ds3 = null;
+            DataSet ds4 = null;
+            DataSet ds5 = null;
             SqlDataAdapter sqldda = null;
 
             System.Data.SqlClient.SqlConnection sqlConnection =
-                new System.Data.SqlClient.SqlConnection("server=triageserver.database.windows.net;database=TriageDB;uid=triage;password=sme@12345;");
+                new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
 
             System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand();
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Connection = sqlConnection;
             sqlConnection.Open();
 
-            cmd.CommandText = "SELECT emailID, firstName name from Users";
+
+            cmd.CommandText = "SELECT designation from Users where emailID = '" +
+                HttpContext.Current.User.Identity.Name.ToString() + "'";
+            ds3 = new DataSet();
+            sqldda = new SqlDataAdapter(cmd);
+            sqldda.Fill(ds3);
+
+            if (ds3.Tables[0].Rows.Count == 0 || ds3.Tables[0].Rows[0][0].ToString() == "Support Engineer")
+            {
+                sqlConnection.Close();
+                pnlReport.Visible = false;
+                lblComment.Text = "Only TA/Manager can assess Reports of the engineers";
+                return;
+            }
+
+            pnlReport.Visible = true;
+
+
+            cmd.CommandText = "SELECT [Engineer],[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+                "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
+                "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
+                ",[EngineerAssessmentDate] FROM[dbo].[Assessment] where [EngineerAssessment] = 'Yes' order by [Engineer]";
+            ds4 = new DataSet();
+            sqldda = new SqlDataAdapter(cmd);
+            sqldda.Fill(ds4);
+
+            grdEngAssess.DataSource = ds4;
+            grdEngAssess.DataBind();
+            cmd.CommandText = "SELECT [Engineer],[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+                "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
+                "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
+                ",[TAAssessmentBy],[TAAssessmentDate] FROM[dbo].[Assessment] where [TAAssessment] = 'Yes' order by [Engineer]";
+            ds5 = new DataSet();
+            sqldda = new SqlDataAdapter(cmd);
+            sqldda.Fill(ds5);
+
+            grdTAAssess.DataSource = ds5;
+            grdTAAssess.DataBind();
+
+            cmd.CommandText = "SELECT emailID, firstName name from Users where [Designation] = 'Support Engineer'";
             ds = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds);
@@ -45,7 +88,7 @@ namespace TriageManager.TDP
 
             DataTable dt = new DataTable();
             dt.Columns.Add("Engineer");
-            dt.Columns.Add("Name ");
+            dt.Columns.Add("Name");
 
             foreach (DataRow row in ds1.Tables[0].Rows)
             {
@@ -60,6 +103,7 @@ namespace TriageManager.TDP
                 dt.Rows[count - 1][1] = row[1].ToString();
             }
 
+            dt.DefaultView.Sort = "Name asc";
             DataTable dt1 = dt.Copy();
 
             foreach (DataRow row in ds2.Tables[0].Rows)
@@ -88,7 +132,8 @@ namespace TriageManager.TDP
             }
 
             dt1.Columns.Remove("Engineer");
-
+            
+            dt1.DefaultView.Sort = "Name asc";
             grdEngineer.DataSource = dt1;
             grdEngineer.DataBind();
         }
