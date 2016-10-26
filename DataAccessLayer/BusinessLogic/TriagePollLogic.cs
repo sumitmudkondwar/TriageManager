@@ -269,7 +269,7 @@ namespace DataAccessLayer.BusinessLogic
             DataTable dt = new DataTable();
 
             string Query = "declare @Alias varchar(50); select @Alias = Alias from Users where EmailID = @p_EmailID;";
-            Query = Query + " select alias,TriageLevel,TriageQuality,Presentation,Comments from poll where TriageDate = (select top 1 TriageDate from TriageCalender ";
+            Query = Query + " select TriageLevel,TriageQuality,Presentation,Comments from poll where TriageDate = (select top 1 TriageDate from TriageCalender ";
             Query = Query + " where (Team1Member = @Alias or Team2Member = @Alias or TA_Member = @Alias or TriageMentor = @Alias) and IsTriageAttended='Yes')";
 
             SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_EmailID", EmailID) };
