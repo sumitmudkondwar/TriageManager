@@ -130,6 +130,15 @@ namespace TriageManager.TDP {
         protected global::System.Web.UI.WebControls.Calendar calETA;
         
         /// <summary>
+        /// lblSelectedDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelectedDate;
+        
+        /// <summary>
         /// btnAdd control.
         /// </summary>
         /// <remarks>

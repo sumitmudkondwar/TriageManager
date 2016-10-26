@@ -61,7 +61,8 @@
             </td>
             <td></td>
             <td>
-                <asp:Calendar ID="calETA" runat="server" OnDayRender="calETA_DayRender"></asp:Calendar>                
+                <asp:Calendar ID="calETA" runat="server" OnSelectionChanged="calETA_SelectionChanged" OnDayRender="calETA_DayRender"></asp:Calendar>                                               
+                <asp:Label ID="lblSelectedDate" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>

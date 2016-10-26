@@ -27,8 +27,11 @@ namespace TriageManager.TDP
                 cmd.Connection = sqlConnection;
                 sqlConnection.Open();
 
+                string email = HttpContext.Current.User.Identity.Name.ToString();
+                email = "hkrish@microsoft.com";
+
                 cmd.CommandText = "SELECT designation from Users where emailID = '" +
-                    HttpContext.Current.User.Identity.Name.ToString() + "'";
+                    email.ToString() + "'";
                 ds = new DataSet();
                 sqldda = new SqlDataAdapter(cmd);
                 sqldda.Fill(ds);
@@ -72,6 +75,9 @@ namespace TriageManager.TDP
                 ddlTopic.DataValueField = "Topic";
                 ddlTopic.DataBind();
                 ddlTopic.Items.Insert(0, "Select");
+
+                calETA.SelectedDate = DateTime.Now;
+                lblSelectedDate.Text = calETA.SelectedDate.ToString();
 
                 for (int i = 1; i <= 20; i++)
                 {
@@ -148,6 +154,11 @@ namespace TriageManager.TDP
             {
                 e.Day.IsSelectable = false;
             }
+        }
+
+        protected void calETA_SelectionChanged(object sender, EventArgs e)
+        {
+            lblSelectedDate.Text = calETA.SelectedDate.ToString();
         }
     }
 }
