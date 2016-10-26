@@ -1,5 +1,23 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TDP/NestedMasterPage1.master" AutoEventWireup="true" CodeBehind="Assign.aspx.cs" Inherits="TriageManager.TDP.Assign" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TDPContent" runat="server">
+        
+ <script type="text/javascript">
+     function AddItem() {
+         var name = document.getElementById("MainContent_TDPContent_ddlEngineer").value;
+         var topic = document.getElementById("MainContent_TDPContent_ddlTopic").value;
+         var priority = document.getElementById("MainContent_TDPContent_ddlPriority").value;
+         var level = '<%= rdlLevel.SelectedValue %>';
+         var calendarDate = '<%= calETA.SelectedDate %>';
+         var message = "Selected values are: \n Engineer: " + name + "\n Topic: " + topic + "\n Priority: " + priority
+             + "\n Level: " + level + "\n ETA: " + calendarDate;
+         
+    if (confirm(message)) {
+
+                return true;
+            }
+            return false;
+        }
+ </script>
     <br />
 <br />
     <table>
@@ -68,7 +86,7 @@
         <tr>
             <td></td>
             <td>
-                <asp:Button ID="btnAdd" runat="server" Text="Add Task to Engineer" OnClick="btnAdd_Click" />
+                <asp:Button ID="btnAdd" runat="server" Text="Add Task to Engineer" OnClick="btnAdd_Click" onclientclick="return AddItem()"  />
             </td>
             <td></td>
         </tr>
