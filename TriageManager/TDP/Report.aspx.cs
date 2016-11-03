@@ -37,13 +37,13 @@ namespace TriageManager.TDP
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds3);
 
-            if (ds3.Tables[0].Rows.Count == 0 || ds3.Tables[0].Rows[0][0].ToString() == "Support Engineer")
-            {
-                sqlConnection.Close();
-                pnlReport.Visible = false;
-                lblComment.Text = "Only TA/Manager can assess Reports of the engineers";
-                return;
-            }
+            //if (ds3.Tables[0].Rows.Count == 0 || ds3.Tables[0].Rows[0][0].ToString() == "Support Engineer")
+            //{
+            //    sqlConnection.Close();
+            //    pnlReport.Visible = false;
+            //    lblComment.Text = "Only TA/Manager can assess Reports of the engineers";
+            //    return;
+            //}
 
             pnlReport.Visible = true;
 
@@ -51,7 +51,7 @@ namespace TriageManager.TDP
             cmd.CommandText = "SELECT [firstname] Name,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS]" +
-                ",TRY_PARSE([EngineerAssessmentDate] as date) FROM[dbo].[Assessment], [Users] where [EngineerAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
+                ",TRY_PARSE([EngineerAssessmentDate] as date) EngDate FROM[dbo].[Assessment], [Users] where [EngineerAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
             ds4 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds4);
@@ -61,7 +61,7 @@ namespace TriageManager.TDP
             cmd.CommandText = "SELECT [firstname] Name,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
-                ",[TAAssessmentBy],TRY_PARSE([TAAssessmentDate] as date) FROM[dbo].[Assessment], [Users] where [TAAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
+                ",[TAAssessmentBy],TRY_PARSE([TAAssessmentDate] as date) TADate FROM[dbo].[Assessment], [Users] where [TAAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
             ds5 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds5);
