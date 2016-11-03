@@ -48,20 +48,20 @@ namespace TriageManager.TDP
             pnlReport.Visible = true;
 
 
-            cmd.CommandText = "SELECT [Engineer],[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+            cmd.CommandText = "SELECT [firstname] Name,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
-                "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
-                ",[EngineerAssessmentDate] FROM[dbo].[Assessment] where [EngineerAssessment] = 'Yes' order by [Engineer]";
+                "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS]" +
+                ",TRY_PARSE([EngineerAssessmentDate] as date) FROM[dbo].[Assessment], [Users] where [EngineerAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
             ds4 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds4);
 
             grdEngAssess.DataSource = ds4;
             grdEngAssess.DataBind();
-            cmd.CommandText = "SELECT [Engineer],[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+            cmd.CommandText = "SELECT [firstname] Name,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
-                ",[TAAssessmentBy],[TAAssessmentDate] FROM[dbo].[Assessment] where [TAAssessment] = 'Yes' order by [Engineer]";
+                ",[TAAssessmentBy],TRY_PARSE([TAAssessmentDate] as date) FROM[dbo].[Assessment], [Users] where [TAAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
             ds5 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds5);
