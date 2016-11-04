@@ -43,7 +43,7 @@
 
     </style>
     <hr />
-    <div id="dvAccordian" style="width:90%">
+    <div id="dvAccordian" style="width:90%" runat="server">
         <asp:Repeater ID="rptAccordian" runat="server" OnItemDataBound="rptAccordian_ItemDataBound">
             <ItemTemplate>
                 <h3>
@@ -56,5 +56,14 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
+    </div>
+    <div id="dvSETriageReport" runat="server" style="width:90%">
+        <asp:Label ID="lblMessage" runat="server"></asp:Label>
+        <hr />
+        <div>
+            <asp:GridView ID="grdSETriageReport" runat="server" CssClass="mydatagrid" PagerStyle-CssClass="pager" HeaderStyle-CssClass="header"
+                    RowStyle-CssClass="rows">
+            </asp:GridView>
+        </div>
     </div>
 </asp:Content>
