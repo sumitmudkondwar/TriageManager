@@ -19,7 +19,7 @@ namespace TriageManager.Triage
                 DataTable dt = new DataTable();
                 TriagePollLogic triagePollLogic = new TriagePollLogic();
                 string Designation = "";
-                Designation = triagePollLogic.GetDesignation("sumudk@microsoft.com");
+                Designation = triagePollLogic.GetDesignation(HttpContext.Current.User.Identity.Name.ToString());
                 Session["Designation"] = Designation;
 
                 if (Designation.Equals("Support Engineer"))
