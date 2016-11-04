@@ -48,7 +48,7 @@ namespace TriageManager.TDP
             pnlReport.Visible = true;
 
 
-            cmd.CommandText = "SELECT left([firstname],10) Name,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+            cmd.CommandText = "SELECT left([firstname],10) EngineerName,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS]" +
                 ",convert(varchar, TRY_PARSE([EngineerAssessmentDate] as date)) LastUpdate FROM[dbo].[Assessment], [Users] where [EngineerAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
@@ -59,7 +59,7 @@ namespace TriageManager.TDP
             grdEngAssess.DataSource = ds4;
             grdEngAssess.DataBind();
 
-            cmd.CommandText = "select rep.*, left([Users].[firstName],10) TA from (SELECT left([firstname],10) Name,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+            cmd.CommandText = "select rep.*, left([Users].[firstName],10) AssessedBy from (SELECT left([firstname],9) EngineerName,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
                 ",[TAAssessmentBy],convert(varchar, TRY_PARSE([TAAssessmentDate] as date)) LastUpdate FROM[dbo].[Assessment], [Users] where [TAAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID) rep, [Users] " +
@@ -72,7 +72,7 @@ namespace TriageManager.TDP
             grdTAAssess.DataSource = ds5;
             grdTAAssess.DataBind();
 
-            cmd.CommandText = "SELECT emailID, left(firstName,10) name from Users where [Designation] = 'Support Engineer'";
+            cmd.CommandText = "SELECT emailID, left(firstName,10) EngineerName from Users where [Designation] = 'Support Engineer'";
             ds = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds);
@@ -91,7 +91,7 @@ namespace TriageManager.TDP
 
             DataTable dt = new DataTable();
             dt.Columns.Add("Engineer");
-            dt.Columns.Add("Name");
+            dt.Columns.Add("EngineerName");
 
             foreach (DataRow row in ds1.Tables[0].Rows)
             {
@@ -106,7 +106,7 @@ namespace TriageManager.TDP
                 dt.Rows[count - 1][1] = row[1].ToString();
             }
 
-            dt.DefaultView.Sort = "Name asc";
+            dt.DefaultView.Sort = "EngineerName asc";
             DataTable dt1 = dt.Copy();
 
             foreach (DataRow row in ds2.Tables[0].Rows)
@@ -136,7 +136,7 @@ namespace TriageManager.TDP
 
             dt1.Columns.Remove("Engineer");
             
-            dt1.DefaultView.Sort = "Name asc";
+            dt1.DefaultView.Sort = "EngineerName asc";
             grdEngineer.DataSource = dt1;
             grdEngineer.DataBind();
         }
