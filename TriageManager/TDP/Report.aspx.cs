@@ -51,17 +51,18 @@ namespace TriageManager.TDP
             cmd.CommandText = "SELECT [firstname] Name,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS]" +
-                ",TRY_PARSE([EngineerAssessmentDate] as date) EngDate FROM[dbo].[Assessment], [Users] where [EngineerAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
+                ",convert(varchar, TRY_PARSE([EngineerAssessmentDate] as date)) EngDate FROM[dbo].[Assessment], [Users] where [EngineerAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
             ds4 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds4);
 
             grdEngAssess.DataSource = ds4;
             grdEngAssess.DataBind();
+
             cmd.CommandText = "SELECT [firstname] Name,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
-                ",[TAAssessmentBy],TRY_PARSE([TAAssessmentDate] as date) TADate FROM[dbo].[Assessment], [Users] where [TAAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
+                ",[TAAssessmentBy] TA,convert(varchar, TRY_PARSE([TAAssessmentDate] as date)) TADate FROM[dbo].[Assessment], [Users] where [TAAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
             ds5 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds5);
