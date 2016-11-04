@@ -72,7 +72,7 @@ namespace TriageManager.TDP
             grdTAAssess.DataSource = ds5;
             grdTAAssess.DataBind();
 
-            cmd.CommandText = "SELECT emailID, left(firstName,10) EngineerName from Users where [Designation] = 'Support Engineer'";
+            cmd.CommandText = "SELECT emailID, left(firstName,10) name from Users where [Designation] = 'Support Engineer'";
             ds = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds);
@@ -106,7 +106,7 @@ namespace TriageManager.TDP
                 dt.Rows[count - 1][1] = row[1].ToString();
             }
 
-            dt.DefaultView.Sort = "EngineerName asc";
+            dt.DefaultView.Sort = "Name asc";
             DataTable dt1 = dt.Copy();
 
             foreach (DataRow row in ds2.Tables[0].Rows)
@@ -136,7 +136,7 @@ namespace TriageManager.TDP
 
             dt1.Columns.Remove("Engineer");
             
-            dt1.DefaultView.Sort = "EngineerName asc";
+            dt1.DefaultView.Sort = "Name asc";
             grdEngineer.DataSource = dt1;
             grdEngineer.DataBind();
         }
