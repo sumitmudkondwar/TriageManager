@@ -50,7 +50,7 @@ begin
 	close C1
 	deallocate C1
 
-	select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date], TriageTopic [Topic], Team1Member [Team 1], Team2Member [Team 2], TA_Member [TA], TriageMentor [Mentor] from #temp
+	select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date], TriageTopic [Topic], Team1Member [Team 1], Team2Member [Team 2], TA_Member [TA], TriageMentor [Mentor],IsTriageCompleted from #temp
 
 	drop table #temp
 

@@ -174,6 +174,32 @@ namespace DataAccessLayer.BusinessLogic
             }
         }
 
+        public string GetDesignation(string Alias)
+        {
+            string Designation = "";
+
+            try
+            {
+                DataTable dt = new DataTable();
+
+                string Query = "select designation from users where EmailID = @p_EmailID";
+
+                SqlParameter[] sqlParameter = new SqlParameter[] { new SqlParameter("@p_EmailID", Alias) };
+                dt = DataAccess.DataAccess.executeGetDataTable(Query, sqlParameter);
+                
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    Designation = dt.Rows[0][0].ToString();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+            return Designation;
+        }
+
         public DataTable GetReportNameList(string Alias, out string Designation)
         {
             try

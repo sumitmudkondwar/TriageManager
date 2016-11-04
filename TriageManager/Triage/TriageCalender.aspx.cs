@@ -25,7 +25,18 @@ namespace TriageManager.Triage
             grdTriageCalender.DataSource = dt;
             grdTriageCalender.DataBind();
 
+            foreach (GridViewRow row in grdTriageCalender.Rows)
+            {
+                if (row.RowType == DataControlRowType.DataRow)
+                {
+                    //row.Cells
+                    Button btnMyPoll = row.FindControl("btnMyPoll") as Button;
+                    btnMyPoll.Visible = false;
+                }
+            }
+
             //return ds;
         }
+        
     }
 }

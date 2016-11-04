@@ -14,55 +14,75 @@ namespace TriageManager.Triage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            TriagePollLogic triagePollLogic = new TriagePollLogic();
-            dt = triagePollLogic.GetTriageCalender();
+            if (!IsPostBack)
+            {
+                DataTable dt = new DataTable();
+                TriagePollLogic triagePollLogic = new TriagePollLogic();
+                string Designation = "";
+                Designation = triagePollLogic.GetDesignation("sumudk@microsoft.com");
 
-            rptAccordian.DataSource = dt;
-            rptAccordian.DataBind();
+                if (Designation.Equals("Support Engineer"))
+                {
+                    dt = new DataTable();
+                    dvSETriageReport.Visible = true;
+                    dvAccordian.Visible = false;
 
+                    dt = triagePollLogic.GetReportDataForAll(HttpContext.Current.User.Identity.Name.ToString());
+                    grdSETriageReport.DataSource = dt;
+                    grdSETriageReport.DataBind();
+                    if (dt.Rows.Count == 0)
+                    {
+                        lblMessage.Text = "No Records Found...";
+                        lblMessage.ForeColor = System.Drawing.Color.Red;
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Total Submitted Polls: " + dt.Rows.Count.ToString();
+                        lblMessage.ForeColor = System.Drawing.Color.Green;
+                    }
+                }
+                else if (Designation.Equals("Manager") || Designation.Equals("TA"))
+                {
+                    dvSETriageReport.Visible = false;
+                    dvAccordian.Visible = true;
 
-            
-            //string html = "";
-            //foreach (DataRow dr in dt.Rows)
-            //{
-            //    html = html + "<h3>" + dr[0].ToString() + "</h3><div><p></p></div>";
-            //}
+                    dt = triagePollLogic.GetTriageCalender();
 
-            //HtmlGenericControl div = new HtmlGenericControl("accordion");
-            //div.InnerHtml = html;
-
-            //ContentPlaceHolder cph;
-            //Literal lit;
-
-            //cph = (ContentPlaceHolder)Master.FindControl("MainContent");
-
-            //if (cph != null)
-            //{
-            //    lit = (Literal)cph.FindControl("accordion");
-            //    if (lit != null)
-            //    {
-            //        lit.Text = "Some <b>HTML</b>";
-            //    }
-            //}
-
-
-            //accordion.InnerHtml = html;
+                    rptAccordian.DataSource = dt;
+                    rptAccordian.DataBind();
+                }
+                else
+                {
+                    dvAccordian.Visible = false;
+                    dvSETriageReport.Visible = true;
+                    grdSETriageReport.Visible = false;
+                    lblMessage.Text = "You are not a Member of Triage Series yet!!!";
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                }
+            }
         }
 
         protected void rptAccordian_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             dynamic rowData = e.Item.DataItem;
             string TriageDate = rowData.Row.ItemArray[0].ToString();
+            string Designation = string.Empty;
+
+            GridView grdPollData = new GridView();
             TriagePollLogic triagePollLogic = new TriagePollLogic();
             DataTable dt = new DataTable();
-            dt = triagePollLogic.GetReportData(TriageDate, "1", "Manager");
 
-            GridView grdAcc = new GridView();
-            grdAcc = e.Item.FindControl("grdPollData") as GridView;
+            
 
-            grdAcc.DataSource = dt;
-            grdAcc.DataBind();
+            if(Designation.Equals("Manager") || Designation.Equals("TA"))
+                dt = triagePollLogic.GetReportData(TriageDate, "1", Designation);
+            else if(Designation.Equals("Support Engineer"))
+                dt = triagePollLogic.GetReportData(TriageDate, "2", Designation);
+
+
+            grdPollData = e.Item.FindControl("grdPollData") as GridView;
+            grdPollData.DataSource = dt;
+            grdPollData.DataBind();
         }
 
         //protected void rptAccordian_ItemDataBound(object sender, RepeaterItemEventArgs e)
