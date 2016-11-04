@@ -48,10 +48,10 @@ namespace TriageManager.TDP
             pnlReport.Visible = true;
 
 
-            cmd.CommandText = "SELECT [firstname] Name,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+            cmd.CommandText = "SELECT left([firstname],10) EngineerName,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS]" +
-                ",convert(varchar, TRY_PARSE([EngineerAssessmentDate] as date)) EngDate FROM[dbo].[Assessment], [Users] where [EngineerAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
+                ",convert(varchar, TRY_PARSE([EngineerAssessmentDate] as date)) LastUpdate FROM[dbo].[Assessment], [Users] where [EngineerAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
             ds4 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds4);
@@ -59,18 +59,20 @@ namespace TriageManager.TDP
             grdEngAssess.DataSource = ds4;
             grdEngAssess.DataBind();
 
-            cmd.CommandText = "SELECT [firstname] Name,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+            cmd.CommandText = "select rep.*, left([Users].[firstName],10) AssessedBy from (SELECT left([firstname],9) EngineerName,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
                 "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
                 "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
-                ",[TAAssessmentBy] TA,convert(varchar, TRY_PARSE([TAAssessmentDate] as date)) TADate FROM[dbo].[Assessment], [Users] where [TAAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID  order by Name";
+                ",[TAAssessmentBy],convert(varchar, TRY_PARSE([TAAssessmentDate] as date)) LastUpdate FROM[dbo].[Assessment], [Users] where [TAAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID) rep, [Users] " +
+                "where rep.[TAAssessmentBy] = [Users].emailID ";
             ds5 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds5);
+            ds5.Tables[0].Columns.RemoveAt(16);
 
             grdTAAssess.DataSource = ds5;
             grdTAAssess.DataBind();
 
-            cmd.CommandText = "SELECT emailID, firstName name from Users where [Designation] = 'Support Engineer'";
+            cmd.CommandText = "SELECT emailID, left(firstName,10) name from Users where [Designation] = 'Support Engineer'";
             ds = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds);
@@ -89,7 +91,7 @@ namespace TriageManager.TDP
 
             DataTable dt = new DataTable();
             dt.Columns.Add("Engineer");
-            dt.Columns.Add("Name");
+            dt.Columns.Add("EngineerName");
 
             foreach (DataRow row in ds1.Tables[0].Rows)
             {
