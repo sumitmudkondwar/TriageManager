@@ -43,19 +43,23 @@
 
     </style>
     <hr />
-    <div id="dvAccordian" style="width:90%" runat="server">
-        <asp:Repeater ID="rptAccordian" runat="server" OnItemDataBound="rptAccordian_ItemDataBound">
-            <ItemTemplate>
-                <h3>
-                    <%# Eval("Topic") %></h3>
-                <div>
-                    <p>
-                        <asp:GridView ID="grdPollData" CssClass="gridtable" runat="server">
-                        </asp:GridView>
-                    </p>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
+    <div id="dvAccMain" style="width:100%" runat="server">
+        <div id="dvAccordian" style="width:90%">
+            <asp:Repeater ID="rptAccordian" runat="server" OnItemDataBound="rptAccordian_ItemDataBound">
+                <ItemTemplate>
+                    <h3>
+                        <%# Eval("Topic") %></h3>
+                    <div>
+                        <div style="height:500px">
+                            <p>
+                                <asp:GridView ID="grdPollData" CssClass="gridtable" runat="server">
+                                </asp:GridView>
+                            </p>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
     </div>
     <div id="dvSETriageReport" runat="server" style="width:90%">
         <asp:Label ID="lblMessage" runat="server"></asp:Label>

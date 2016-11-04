@@ -13,13 +13,13 @@ namespace TriageManager.Triage {
     public partial class ReportsNew {
         
         /// <summary>
-        /// dvAccordian control.
+        /// dvAccMain control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvAccordian;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvAccMain;
         
         /// <summary>
         /// rptAccordian control.

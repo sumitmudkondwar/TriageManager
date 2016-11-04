@@ -20,12 +20,13 @@ namespace TriageManager.Triage
                 TriagePollLogic triagePollLogic = new TriagePollLogic();
                 string Designation = "";
                 Designation = triagePollLogic.GetDesignation("sumudk@microsoft.com");
+                Session["Designation"] = Designation;
 
                 if (Designation.Equals("Support Engineer"))
                 {
                     dt = new DataTable();
                     dvSETriageReport.Visible = true;
-                    dvAccordian.Visible = false;
+                    dvAccMain.Visible = false;
 
                     dt = triagePollLogic.GetReportDataForAll(HttpContext.Current.User.Identity.Name.ToString());
                     grdSETriageReport.DataSource = dt;
@@ -44,7 +45,7 @@ namespace TriageManager.Triage
                 else if (Designation.Equals("Manager") || Designation.Equals("TA"))
                 {
                     dvSETriageReport.Visible = false;
-                    dvAccordian.Visible = true;
+                    dvAccMain.Visible = true;
 
                     dt = triagePollLogic.GetTriageCalender();
 
@@ -53,7 +54,7 @@ namespace TriageManager.Triage
                 }
                 else
                 {
-                    dvAccordian.Visible = false;
+                    dvAccMain.Visible = false;
                     dvSETriageReport.Visible = true;
                     grdSETriageReport.Visible = false;
                     lblMessage.Text = "You are not a Member of Triage Series yet!!!";
@@ -66,7 +67,7 @@ namespace TriageManager.Triage
         {
             dynamic rowData = e.Item.DataItem;
             string TriageDate = rowData.Row.ItemArray[0].ToString();
-            string Designation = string.Empty;
+            string Designation = Session["Designation"].ToString();
 
             GridView grdPollData = new GridView();
             TriagePollLogic triagePollLogic = new TriagePollLogic();
@@ -84,25 +85,5 @@ namespace TriageManager.Triage
             grdPollData.DataSource = dt;
             grdPollData.DataBind();
         }
-
-        //protected void rptAccordian_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        //{
-        //DataTable dt = new DataTable();
-        //TriagePollLogic triagePollLogic = new TriagePollLogic();
-
-        //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-        //{
-        //    dynamic person = e.Item.DataItem as dynamic;
-
-        //    string name = person.Row.ItemArray[1];
-        //    dt = triagePollLogic.GetTriageDateList(name);
-
-        //    Repeater ctrlDateRepeater = new Repeater();
-        //    ctrlDateRepeater = e.Item.FindControl("rptDateAccordian") as Repeater;
-        //    ctrlDateRepeater.DataSource = dt;
-        //    ctrlDateRepeater.DataBind();
-        //}
-
-        //}
     }
 }
