@@ -57,7 +57,7 @@
                         <li><a runat="server" href="~/Triage/TriageCalender">Triage Calender</a></li>
                         <li><a runat="server" href="~/Triage/KnowledgeBase">Knowledge Base</a></li>
                         <li><a runat="server" href="~/TDP/TDPtasks">TDP Tasks</a></li>
-                    </ul>
+                    </ul> 
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">

@@ -50,7 +50,7 @@
                     <h3>
                         <%# Eval("Topic") %></h3>
                     <div>
-                        <div style="height:500px">
+                        <div style="height:500px"> 
                             <p>
                                 <asp:GridView ID="grdPollData" CssClass="gridtable" runat="server">
                                 </asp:GridView>
