@@ -36,9 +36,9 @@ begin
 				Team2Member,
 				TA_Member,
 				TriageMentor 
-		from triagecalender
+		from triagecalender where istriagecompleted = 1
 	) a
-	where day1 > 0 AND [TriageDate] NOT IN 
+	where day1 >= 0 AND [TriageDate] NOT IN 
 		(
 			select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date] 
 			from poll where alias = @p_Alias

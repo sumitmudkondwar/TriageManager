@@ -50,7 +50,8 @@ begin
 	close C1
 	deallocate C1
 
-	select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date], TriageTopic [Topic], Team1Member [Team 1], Team2Member [Team 2], TA_Member [TA], TriageMentor [Mentor],IsTriageCompleted from #temp
+	select REPLACE(CONVERT(VARCHAR(11),TriageDate,106), ' ','/')[Triage Date], TriageTopic [Topic], Team1Member [Team 1], Team2Member [Team 2], TA_Member [TA], TriageMentor [Mentor],
+	IsTriageCompleted = case when IsTriageCompleted = 1 then 'Completed' else 'Not Completed' end from #temp
 
 	drop table #temp
 

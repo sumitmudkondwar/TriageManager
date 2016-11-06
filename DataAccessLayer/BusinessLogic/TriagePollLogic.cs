@@ -71,7 +71,7 @@ namespace DataAccessLayer.BusinessLogic
                 {
                     new SqlParameter("@p_Alias", alias),
                 };
-            dt = DataAccess.DataAccess.executeGetDataTable("select Alias, TriageDate [Date], TriageLevel [Level],TriageQuality [Quality], Presentation, Comments, Reason from poll", sqlParameter);
+            dt = DataAccess.DataAccess.executeGetDataTable("select Alias, TriageDate [Date], TriageLevel [Level],TriageQuality [Quality], Presentation, Comments, Reason from poll where Alias = @p_Alias", sqlParameter);
 
             return dt;
         }

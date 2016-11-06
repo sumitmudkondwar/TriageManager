@@ -13,7 +13,10 @@ namespace TriageManager.Triage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            GridDataBind();
+            if (!IsPostBack)
+            {
+                GridDataBind();
+            }
         }
 
         private void GridDataBind()
@@ -25,18 +28,36 @@ namespace TriageManager.Triage
             grdTriageCalender.DataSource = dt;
             grdTriageCalender.DataBind();
 
+            dt = new DataTable();
+            dt = triagePollLogic.GetReportTriageAttended("sumudk@microsoft.com");
+
             foreach (GridViewRow row in grdTriageCalender.Rows)
             {
                 if (row.RowType == DataControlRowType.DataRow)
                 {
-                    //row.Cells
                     Button btnMyPoll = row.FindControl("btnMyPoll") as Button;
-                    btnMyPoll.Visible = false;
+                    if (row.Cells[5].Text.Equals("Not Completed"))
+                    {
+                        btnMyPoll.Visible = false;
+                    }
+                    else if (row.Cells[5].Text.Equals("Completed"))
+                    {
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            if (Convert.ToDateTime(dr["Date"].ToString()) == Convert.ToDateTime(row.Cells[0].Text))
+                            {
+                                btnMyPoll.Visible = false;
+                            }
+                        }
+                    }
                 }
             }
-
-            //return ds;
         }
-        
+
+        protected void btnMyPoll_Click(object sender, EventArgs e)
+        {
+            GridViewRow gridViewRow = (GridViewRow)((Button)sender).NamingContainer;
+            Response.Redirect("~/Triage/MyPoll.aspx?TriageDate=" + gridViewRow.Cells[0].Text);
+        }
     }
 }
