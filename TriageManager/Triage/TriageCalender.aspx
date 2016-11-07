@@ -14,14 +14,14 @@
                     </ItemTemplate>
                 </asp:TemplateField>--%>
                 <asp:BoundField HeaderText="Triage Date" DataField="Triage Date" ItemStyle-Width="10%" />
-                <asp:BoundField HeaderText="Topic" DataField="Topic" ItemStyle-Width="32%" />
+                <asp:BoundField HeaderText="Topic" DataField="Topic" ItemStyle-Width="30%" />
                 <asp:BoundField HeaderText="Team 1 Member" DataField="Team 1" ItemStyle-Width="13%" />
                 <asp:BoundField HeaderText="Team 2 Member" DataField="Team 2" ItemStyle-Width="13%" />
                 <asp:BoundField HeaderText="Mentor" DataField="Mentor" ItemStyle-Width="16%" />
-                <asp:BoundField HeaderText="Triage Status" DataField="IsTriageCompleted" ItemStyle-Width="10%" />
+                <asp:BoundField HeaderText="Triage Status" DataField="IsTriageCompleted" ItemStyle-Width="12%" />
                 <asp:TemplateField HeaderText = "MyPoll" ItemStyle-Width="6%" >
                     <ItemTemplate>
-                        <asp:Button ID="btnMyPoll" runat="server" Text="Submit Poll" />
+                        <asp:Button ID="btnMyPoll" runat="server" Text="Submit Poll" OnClick="btnMyPoll_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
