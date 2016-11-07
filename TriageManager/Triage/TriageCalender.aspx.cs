@@ -29,7 +29,7 @@ namespace TriageManager.Triage
             grdTriageCalender.DataBind();
 
             dt = new DataTable();
-            dt = triagePollLogic.GetReportTriageAttended("sumudk@microsoft.com");
+            dt = triagePollLogic.GetReportTriageAttended(HttpContext.Current.User.Identity.Name.ToString());
 
             foreach (GridViewRow row in grdTriageCalender.Rows)
             {
