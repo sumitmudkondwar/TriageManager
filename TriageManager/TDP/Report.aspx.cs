@@ -72,26 +72,50 @@ namespace TriageManager.TDP
                     dtCloned.ImportRow(row);
                 }
 
-                grdEngAssess.DataSource = ds4;
-            grdEngAssess.DataBind();
+            //    grdEngAssess.DataSource = ds4;
+            //grdEngAssess.DataBind();
 
 
-                cmd.CommandText = "select rep.*, left([Users].[firstName],10) AssessedBy from (SELECT left([firstname],10) EngineerName,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
-                "[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
-                "[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
-                ",[TAAssessmentBy],convert(varchar, TRY_PARSE([TAAssessmentDate] as date)) LastUpdate FROM[dbo].[Assessment], [Users] where [TAAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID) rep, [Users] " +
-                "where rep.[TAAssessmentBy] = [Users].emailID order by EngineerName";
-            ds5 = new DataSet();
+                //cmd.CommandText = "select rep.*, left([Users].[firstName],10) AssessedBy from (SELECT left([firstname],10) EngineerName,[Availability / Performance],[VNET / Hybrid],[ASE],[Mobile Apps]," +
+                //"[WebJobs / Functions],[Azure App Service on Linux],[Deployment],[Easy Authentication],[AutoScale / Alerts],[Swap / Slots]," +
+                //"[BYOD / App Service Certificate],[Powershell / ARM APIs],[OSS],[Other Configuration],[Stress Testing]" +
+                //",[TAAssessmentBy],convert(varchar, TRY_PARSE([TAAssessmentDate] as date)) LastUpdate FROM[dbo].[Assessment], [Users] where [TAAssessment] = 'Yes'  and [Assessment].Engineer = [Users].emailID) rep, [Users] " +
+                //"where rep.[TAAssessmentBy] = [Users].emailID order by EngineerName";
+
+
+                cmd.CommandText = "select left(U.FirstName,10) EngineerName" +
+      ",concat(isnull(eng.[Availability / Performance], 0), ' | ', isnull(TA.[Availability / Performance], 0)) 'Availability / Performance'" +
+      ",concat(isnull(eng.[VNET / Hybrid], 0), ' | ', isnull(TA.[VNET / Hybrid], 0)) 'VNET / Hybrid'" +
+      ",concat(isnull(eng.[ASE], 0), ' | ', isnull(TA.[ASE], 0)) 'ASE'" +
+      ",concat(isnull(eng.[Mobile Apps], 0), ' | ', isnull(TA.[Mobile Apps], 0)) 'Mobile Apps'" +
+      ",concat(isnull(eng.[WebJobs / Functions], 0), ' | ', isnull(TA.[WebJobs / Functions], 0)) 'WebJobs / Functions'" +
+      ",concat(isnull(eng.[Azure App Service on Linux], 0), ' | ', isnull(TA.[Azure App Service on Linux], 0)) 'Azure App Service on Linux'" +
+      ",concat(isnull(eng.[Deployment], 0), ' | ', isnull(TA.[Deployment], 0)) 'Deployment'" +
+      ",concat(isnull(eng.[Easy Authentication], 0), ' | ', isnull(TA.[Easy Authentication], 0)) 'Easy Authentication'" +
+      ",concat(isnull(eng.[AutoScale / Alerts], 0), ' | ', isnull(TA.[AutoScale / Alerts], 0)) 'AutoScale / Alerts'" +
+      ",concat(isnull(eng.[Swap / Slots], 0), ' | ', isnull(TA.[Swap / Slots], 0)) 'Swap / Slots'" +
+      ",concat(isnull(eng.[BYOD / App Service Certificate], 0), ' | ', isnull(TA.[BYOD / App Service Certificate], 0)) 'BYOD / App Service Certificate'" +
+      ",concat(isnull(eng.[Powershell / ARM APIs], 0), ' | ', isnull(TA.[Powershell / ARM APIs], 0)) 'Powershell / ARM APIs'" +
+      ",concat(isnull(eng.[OSS], 0), ' | ', isnull(TA.[OSS], 0)) 'OSS'" +
+      ",concat(isnull(eng.[Other Configuration], 0), ' | ', isnull(TA.[Other Configuration], 0)) 'Other Configuration'" +
+      ",concat(isnull(eng.[Stress Testing], 0), ' | ', isnull(TA.[Stress Testing], 0)) 'Stress Testing'" +
+      ",left(U1.FirstName, 10) InitialAssessment" +
+      ",convert(varchar, TRY_PARSE(TA.[TAAssessmentDate] as date)) LastUpdate" +
+        " from [Assessment] eng, [Assessment] TA, Users U, Users U1 " +
+        " where TA.TAAssessment = 'Yes' and eng.EngineerAssessment = 'Yes' and TA.engineer = eng.engineer and U.emailID = eng.engineer and U1.emailID = TA.[TAAssessmentBy]" +
+        " order by EngineerName";
+
+ds5 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds5);
-            ds5.Tables[0].Columns.RemoveAt(16);
+            //ds5.Tables[0].Columns.RemoveAt(16);
 
 
-                ds5.Tables[0].DefaultView.Sort = "EngineerName asc";
+                //ds5.Tables[0].DefaultView.Sort = "EngineerName asc";
 
-                (ds5.Tables[0]).SetColumnsOrder("EngineerName", "Availability / Performance", "Deployment", "VNET / Hybrid", "ASE", "WebJobs / Functions",
-                    "Swap / Slots", "Mobile Apps", "Easy Authentication", "AutoScale / Alerts", "BYOD / App Service Certificate",
-                    "Powershell / ARM APIs", "Other Configuration", "Stress Testing", "Azure App Service on Linux", "OSS", "AssessedBy", "LastUpdate");
+                //(ds5.Tables[0]).SetColumnsOrder("EngineerName", "Availability / Performance", "Deployment", "VNET / Hybrid", "ASE", "WebJobs / Functions",
+                //    "Swap / Slots", "Mobile Apps", "Easy Authentication", "AutoScale / Alerts", "BYOD / App Service Certificate",
+                //    "Powershell / ARM APIs", "Other Configuration", "Stress Testing", "Azure App Service on Linux", "OSS", "AssessedBy", "LastUpdate");
 
                 grdTAAssess.DataSource = ds5;
             grdTAAssess.DataBind();
@@ -347,6 +371,34 @@ namespace TriageManager.TDP
                 //}
             }
             catch (Exception ex)
+            {
+
+            }
+        }
+
+        protected void grdTAAssess_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    foreach (TableCell cell in e.Row.Cells)
+                    {
+                        //TableCell cell = e.Row.Cells[1];
+                        string text = cell.Text.ToString();
+
+                        if (text.Contains("| 200"))
+                        {
+                            cell.BackColor = Color.Cyan;
+                        }
+                        else if (text.Contains("| 300"))
+                        {
+                            cell.BackColor = Color.LightGreen;
+                        }
+                    }
+                }
+            }
+            catch (Exception Ex)
             {
 
             }

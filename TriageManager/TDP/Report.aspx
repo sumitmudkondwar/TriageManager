@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/TDP/NestedMasterPage1.master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="TriageManager.TDP.Report" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TDPContent" runat="server">
-<asp:Panel ID="pnlReport" runat="server">
+    <asp:Panel ID="pnlReport" runat="server">
 <style>
 .GridViewClass td,th
 {
@@ -25,7 +25,7 @@
     </asp:GridView>
 <br />
 <br />
-    <h3>Initial Engineer Assessment</h3>
+    <!--<h3>Initial Engineer Assessment</h3>-->
 <br />
     <asp:GridView ID="grdEngAssess" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="GridViewClass">
         <AlternatingRowStyle BackColor="White" />
@@ -42,15 +42,15 @@
     </asp:GridView>
 <br />
 <br />
-    <h3>Initial TA Assessment</h3>
+    <h3>Assessment</h3>
 <br />
-    <asp:GridView ID="grdTAAssess" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="GridViewClass">
+    <asp:GridView ID="grdTAAssess" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="GridViewClass" OnRowDataBound="grdTAAssess_RowDataBound">
         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         <EditRowStyle BackColor="#999999" />
         <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
         <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
         <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" Wrap="False" />
         <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
         <SortedAscendingCellStyle BackColor="#E9E7E2" />
         <SortedAscendingHeaderStyle BackColor="#506C8C" />
@@ -59,7 +59,7 @@
     </asp:GridView>
 <br />
 <br />
-    <h3>TA Status Report</h3>
+    <!--<h3>TA Status Report</h3>-->
 <br />
     <asp:GridView ID="grdTA" runat="server" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" CssClass="GridViewClass" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical">
         <AlternatingRowStyle BackColor="White" />
@@ -75,7 +75,7 @@
     </asp:GridView>
 <br />
 <br />
-    <h3>Current Status of Tasks</h3>
+    <h3>TDP Tasks Status</h3>
 <br />
     <asp:GridView ID="grdEngineer" runat="server" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None" OnRowDataBound="grdEngineer_RowDataBound"  CssClass="GridViewClass">
         <AlternatingRowStyle BackColor="PaleGoldenrod" />
