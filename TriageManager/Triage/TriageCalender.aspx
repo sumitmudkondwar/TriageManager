@@ -24,6 +24,12 @@
                         <asp:Button ID="btnMyPoll" runat="server" Text="Submit Poll" OnClick="btnMyPoll_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
+                <asp:TemplateField HeaderText = "Content" ItemStyle-Width="6%" >
+                    <ItemTemplate>
+                        <asp:HyperLink ID="linkPath" runat="server" Text="\\hkharan\Triage Recordings" NavigateUrl="\\hkharan\Triage Recordings" 
+                            ToolTip="Go to this path for Triage contents"  />
+                    </ItemTemplate>
+                </asp:TemplateField>
             </Columns>
         </asp:GridView>
     </div>
