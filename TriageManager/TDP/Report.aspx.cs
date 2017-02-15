@@ -40,13 +40,13 @@ namespace TriageManager.TDP
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds3);
 
-                if (ds3.Tables[0].Rows.Count == 0 || ds3.Tables[0].Rows[0][0].ToString() == "Support Engineer")
-                {
-                    sqlConnection.Close();
-                    pnlReport.Visible = false;
-                    lblComment.Text = "Only TA/Manager can assess Reports of the engineers";
-                    return;
-                }
+                //if (ds3.Tables[0].Rows.Count == 0 || ds3.Tables[0].Rows[0][0].ToString() == "Support Engineer")
+                //{
+                //    sqlConnection.Close();
+                //    pnlReport.Visible = false;
+                //    lblComment.Text = "Only TA/Manager can assess Reports of the engineers";
+                //    return;
+                //}
 
                 pnlReport.Visible = true;
 
@@ -108,7 +108,37 @@ namespace TriageManager.TDP
 ds5 = new DataSet();
             sqldda = new SqlDataAdapter(cmd);
             sqldda.Fill(ds5);
-            //ds5.Tables[0].Columns.RemoveAt(16);
+
+                cmd.CommandText = "SELECT left(Users.FirstName,10) EngineerName,[Availability / Performance ],[VNET / Hybrid ],[ASE ],[Mobile Apps ],[WebJobs / Functions ],[Azure App Service on Linux ],[Deployment ],[Easy Authentication ],[AutoScale / Alerts ],[Swap / Slots ],[BYOD / App Service Certificate ],[Powershell / ARM APIs ],[OSS ],[Other Configuration ],[Stress Testing ] FROM [dbo].[Assessment], [dbo].[Users] WHERE FinalAssessmentBy is not null  and Users.EmailID = Assessment.Engineer";
+                DataSet final = new DataSet();
+                sqldda = new SqlDataAdapter(cmd);
+                sqldda.Fill(final);
+
+                DataTable change = new DataTable();
+                change = ds5.Tables[0];
+
+                foreach (DataRow a in final.Tables[0].Rows)
+                {
+                    int cn = final.Tables[0].Columns.Count;
+
+
+                    string select = "EngineerName ='" + a[0].ToString() + "'";
+                    DataRow[] result = change.Select(select.ToString());
+                    int SelectedIndex = change.Rows.IndexOf(result[0]);
+
+                    for (int i = 0; i<cn; i++)
+                    {
+                        if (!String.IsNullOrEmpty(a[i].ToString()) && i > 0)
+                        {
+                            change.Rows[SelectedIndex][i] = (change.Rows[SelectedIndex][i]).ToString() + " | " + a[i].ToString();
+                        }
+                    }
+                }
+
+                change.AcceptChanges();
+
+
+                //ds5.Tables[0].Columns.RemoveAt(16);
 
 
                 //ds5.Tables[0].DefaultView.Sort = "EngineerName asc";
@@ -235,6 +265,10 @@ ds5 = new DataSet();
                     string text = cell.Text.ToString();
 
                     if (text.Contains("Comp | Comp"))
+                    {
+                        cell.BackColor = Color.LawnGreen;
+                    }
+                    else if (text.Contains("| Comp"))
                     {
                         cell.BackColor = Color.LawnGreen;
                     }
@@ -394,6 +428,10 @@ ds5 = new DataSet();
                         else if (text.Contains("| 300"))
                         {
                             cell.BackColor = Color.LightGreen;
+                        }
+                        else if (text.Contains("| 400"))
+                        {
+                            cell.BackColor = Color.LawnGreen;
                         }
                     }
                 }

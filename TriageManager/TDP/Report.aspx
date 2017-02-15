@@ -9,7 +9,7 @@
 </style>
 <br />
 <br />
-    <h3>Consolidated View</h3>
+    <!--<h3>Consolidated View</h3>-->
 <br />
     <asp:GridView ID="grdConsolidate" runat="server" CellPadding="4" DataKeyNames="EngineerName" ForeColor="Black" GridLines="Vertical" CssClass="GridViewClass" OnDataBound="grdConsolidate_DataBound" OnRowDataBound="grdConsolidate_RowDataBound" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px">
         <AlternatingRowStyle BackColor="White" />
