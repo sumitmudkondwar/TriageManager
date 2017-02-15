@@ -12,8 +12,8 @@
                     <ItemTemplate>
                         <asp:HyperLink runat="server" Text="Link" NavigateUrl='<%# Eval("Triage Date", "~/Triage/Contents.aspx?Id={0}") %>' />
                     </ItemTemplate>
-                </asp:TemplateField>--%>
-                <asp:BoundField HeaderText="Triage Date" DataField="Triage Date" ItemStyle-Width="10%" />
+                </asp:TemplateField>
+                <asp:BoundField HeaderText="Triage Date" DataField="Triage Date" ItemStyle-Width="10%" />--%>
                 <asp:BoundField HeaderText="Topic" DataField="Topic" ItemStyle-Width="30%" />
                 <asp:BoundField HeaderText="Team 1 Member" DataField="Team 1" ItemStyle-Width="13%" />
                 <asp:BoundField HeaderText="Team 2 Member" DataField="Team 2" ItemStyle-Width="13%" />
